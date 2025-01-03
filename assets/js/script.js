@@ -163,7 +163,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#texteEvenement").html($texteEvenement);
         $("#imageEvenementMap").attr("src", "assets/imgs/maps/"+$imageEvenementMap+".png");
         $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+".png");
-        $("#imageEvenementSurcouche").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+"-surcouche.png");
+        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+"-surcouche.png");
     }
 
     // gestion Alarme
@@ -543,9 +543,14 @@ $(document).ready(function() {  /* chargement du DOM */
             // vérif switch Alerte
             if($("#mobsAlerte").is(":checked")){
                 // Arrivée de Renforts
-                $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br>Arrivée de Renforts :")
+                $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br>Arrivée de Renforts (par la porte la plus proche) :")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
+
+                    // si objectif trouvé
+                    if ($objectifTrouve){
+                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche située entre les Héros et l'Objectif, et peuvent faire un Mouvement (max 8) vers l'Objectif.")
+                    }
                 // augmentation Alarme
                 fonctionAlarmePlus();
                     // régulation bug Alarme exponentielle

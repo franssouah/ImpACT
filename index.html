@@ -105,8 +105,8 @@
 						<img id="imageMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
 						<div class="decalageD ligne">
 							<p id="explorerMobs" class=""></p>
-							<h3 class="marginL">x</h3>
-							<h3 id="nbMobs"></h3>
+							<!--<h3 class="marginL">x</h3>-->
+							<h3 id="nbMobs" class="marginL"></h3>
 							<h3 id="directionMob" class="marginL"></h3>
 						</div>
 						
@@ -204,8 +204,11 @@
 				<div class="colonne centre">
 					<p id="texteEvenement"></p>
 					<img id="imageEvenementMap" src="" class="imageTuile"/>
-					<img id="imageEvenementMob" src="" class="imageMob margin1"/>
-					<img id="imageEvenementMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+					<div class="ligne">
+						<img id="imageEvenementMob" src="" class="imageMob margin1"/>
+						<img id="imageEvenementMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+					</div>
+					
 				</div>
 				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge">Fermer</button>
 			</div>
@@ -215,7 +218,7 @@
 				<h2>Fin du Tour :</h2>
 				<div class="ligne centre">
 					<p>Ennemis en alerte : </p>
-					<input type="checkbox" id="mobsAlerte" name="alerte" value="alerte" class="switch switchRouge"/>
+					<input type="checkbox" id="mobsAlerte" name="alerte" value="alerte" class="switch switchRouge marginL"/>
 				</div>
 				<button id="boutonValiderFinTour" class="boutonVert margin1 boutonLarge">OK</button>
 
@@ -223,14 +226,12 @@
 					<h3 id="affichageRenforts"></h3>
 					<div class="ligne centre">
 						<p id="RenfortsMobs" class="marginL"></p>
-						<div class="ligne">
-							<img id="imageRenforts" src="" class="marginL imageMob">
-							<img id="imageRenfortsSurcouche" src="" class="marginL imageMob imageMobSurcouche">
-						</div>
-						
-						<h3 class="marginL">x</h3>
-						<h3 id="nbRenforts"></h3>
+						<img id="imageRenforts" src="" class="marginL imageMob">
+						<img id="imageRenfortsSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+						<!--<h3 class="marginL">x</h3>-->
+						<h3 id="nbRenforts" class="marginL"></h3>
 					</div>
+					<p id="messageRenforts"></p>
 					
 					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge">Fermer</button>
 				</div>
