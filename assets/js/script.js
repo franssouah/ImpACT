@@ -163,6 +163,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#texteEvenement").html($texteEvenement);
         $("#imageEvenementMap").attr("src", "assets/imgs/maps/"+$imageEvenementMap+".png");
         $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+".png");
+        $("#imageEvenementSurcouche").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+"-surcouche.png");
     }
 
     // gestion Alarme
@@ -240,7 +241,7 @@ $(document).ready(function() {  /* chargement du DOM */
                 $messageObjectifTrouve="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                 // évènement :
-                    $texteEvenement="Comité d'accueil ! <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
+                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif;
                     $imageEvenementMob="Garde_Royal";
             }else if($objectifMission === "liberer"){
@@ -255,7 +256,7 @@ $(document).ready(function() {  /* chargement du DOM */
                 $texteObjectif2="Escortez le prisonnier jusqu'à la Tuile de départ :";
                 $messageObjectifTrouve2="Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 // évènement :
-                    $texteEvenement="Comité d'accueil ! <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
+                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif2;
                     $imageEvenementMob="Garde_Royal";
             }else if($objectifMission === "sabotage"){
@@ -272,7 +273,7 @@ $(document).ready(function() {  /* chargement du DOM */
                 // modif Alarme initiale
                 $Alarme=3;
                 // évènement :
-                    $texteEvenement="Comité d'accueil ! <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
+                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif2;
                     $imageEvenementMob="Garde_Royal";
             }
@@ -418,6 +419,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#persoVert").prop("checked", false);
         $("#persoBleu").prop("checked", false);
         $("#persoRouge").prop("checked", false);
+        $("#alerteJaune").prop("checked", false);
 
         // boutonValiderActivation
         $("#boutonValiderActivation").on("click", function(){

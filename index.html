@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>ImpACT_v0.3</title>
+		<title>ImpACT_v0.4</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="shortcut icon" type="image/png" href="assets/imgs/stormhead.png"/>
 		<script src="assets/js/jquery-3.7.1.js"></script>
@@ -98,14 +98,21 @@
 				</div>
                 
 				<p id="messageObjectifTrouve"></p>
-				<div class="ligne borderTBnoir centre">
+				<div class="colonne borderTBnoir centre">
 					<h3>Ennemis dans la salle :</h3>
-					<p id="explorerMobs" class="marginL"></p>
-					<img id="imageMob" src="" class="marginL imageMob">
-					<img id="imageMobSurcouche" src="" class="marginL imageMob">
-					<h3 class="marginL">x</h3>
-					<h3 id="nbMobs"></h3>
-					<h3 id="directionMob" class="marginL"></h3>
+					<div class="ligne centre">
+						<img id="imageMob" src="" class="marginL imageMob">
+						<img id="imageMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+						<div class="decalageD ligne">
+							<p id="explorerMobs" class=""></p>
+							<h3 class="marginL">x</h3>
+							<h3 id="nbMobs"></h3>
+							<h3 id="directionMob" class="marginL"></h3>
+						</div>
+						
+					</div>
+					
+					
 				</div>
                 <button id="boutonValider" class="boutonVert boutonLarge">OK</button>
             </div>
@@ -119,10 +126,10 @@
 
 			<!--popupActivation-->
 			<div id="popupActivation" class="popup colonne centreH">
-                <h2>Activation des Ennemis de la Tuile choisie :</h2>
+                <h2>Activation des Ennemis :</h2>
 				<div class="borderTB colonne centre">
 					<div class="ligne centre">
-						<h3 class="margin1">Alerte : </h3>
+						<h3 class="margin1 texteVertical">Alerte : </h3>
 						<input type="checkbox" id="persoVert" name="vert" value="vert" class="switch switchVert"/>
 						<input type="checkbox" id="persoBleu" name="bleu" value="bleu" class="switch switchBleu"/>
 						<input type="checkbox" id="persoRouge" name="rouge" value="rouge" class="switch switchRouge"/>
@@ -145,45 +152,50 @@
 					
 					<div id="affichageCombat" class="colonne borderTB centre">
 						<h3 class="marginB0">Attaque :</h3>
-						<div class="ligne centre marginB0">
-							<p>Dés : </p>
-							<select id="nbDes">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-								<option value="17">17</option>
-								<option value="18">18</option>
-								<option value="19">19</option>
-								<option value="20">20</option>
-							</select>
-							<p>Défense : </p>
-							<select id="defenseDes">
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-							</select>
-							<button id="boutonLancerDes" class="marginL boutonBleu">Lancer les dés</button>
+						<div class="ligne centreV">
+							<div class="colonne carreBlanc">
+								<p>Dés : </p>
+								<select id="nbDes" class="selectDe">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+							<div class="colonne carreBlanc">
+								<p>Déf : </p>
+								<select id="defenseDes" class="selectDe">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+								</select>
+							</div>
+							
+							<button id="boutonLancerDes" class="marginL boutonCarre boutonBleu">Lancer !</button>
 							<p id="nbReussites"></p>
 						</div>
 						<div id="zoneAffichageDes" class="ligne"></div>
 					</div>
 				</div>
-				<button id="boutonFermerActivation" class="boutonRouge boutonLarge">Fermer</button>
+				<button id="boutonFermerActivation" class="boutonRouge boutonLarge marginT">Fermer</button>
             </div>
 
 			<!-- popupEvenement-->
@@ -193,6 +205,7 @@
 					<p id="texteEvenement"></p>
 					<img id="imageEvenementMap" src="" class="imageTuile"/>
 					<img id="imageEvenementMob" src="" class="imageMob margin1"/>
+					<img id="imageEvenementMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
 				</div>
 				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge">Fermer</button>
 			</div>
@@ -210,7 +223,11 @@
 					<h3 id="affichageRenforts"></h3>
 					<div class="ligne centre">
 						<p id="RenfortsMobs" class="marginL"></p>
-						<img id="imageRenforts" src="" class="marginL imageMob">
+						<div class="ligne">
+							<img id="imageRenforts" src="" class="marginL imageMob">
+							<img id="imageRenfortsSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+						</div>
+						
 						<h3 class="marginL">x</h3>
 						<h3 id="nbRenforts"></h3>
 					</div>

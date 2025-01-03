@@ -4,6 +4,7 @@
     --blanc: white;
     --dark: rgb(10,10,10);
     --gris: rgb(100,100,100);
+    --grisClair: rgb(180,180,180);
     --rouge: rgb(200,50,50);
     --vert: rgb(50,200,50);
     --bleu: rgb(50,50,200);
@@ -12,6 +13,10 @@
 
 body{
     background-color: var(--dark);
+}
+
+p{
+    font-size: 1.2rem;
 }
 
 
@@ -40,6 +45,9 @@ body{
 
 .alignT{
     align-items: baseline;
+}
+.alignB{
+    align-items: end;
 }
 
 /* Titres */
@@ -133,6 +141,13 @@ h3{
     font-size: 2rem;
     font-weight: bolder;
 }
+.carreBlanc{
+    background-color: var(--blanc);
+    padding: .1rem;
+    border-radius: .2rem;
+    margin: .1rem;
+    height: 4rem;
+}
 
 /* Popups
 ***********************************************/
@@ -190,8 +205,11 @@ h3{
     max-height: 20rem;
     max-width: 20rem;
 }
-#imageMobSurcouche{
+.imageMobSurcouche{
     transform: translateX(-6rem);
+}
+.decalageD{
+    transform: translateX(-4rem);
 }
 
 #iconeImpact{
@@ -304,4 +322,64 @@ button{
 }
 .switchJaune{
     border: 4px solid var(--jaune);
+}
+
+/* Affichage Mobile
+*****************************************************/
+@media screen and (max-width: 38rem) {
+    /* Général */
+    
+
+    /* Popups */
+    
+    #popupTuileRandom{
+        width: 90%;
+    }
+    
+    #popupActivation, #popupChoixMission, #popupFinTour, #popupHistorique, #popupEvenement{
+        background-color: var(--grisClair);
+        width: 90%;
+    }
+    
+    #popupBriefing{
+        background-color: var(--blanc);
+        width: 80%;
+    }
+
+    /* Images */
+    .imageTuile{
+        max-height: 16rem;
+        max-width: 16rem;
+    }
+
+
+    /* Boutons */
+    .boutonLarge{
+        width: 6rem;
+        height: 2rem;
+    }
+
+    /* orientation */
+    .texteVertical{
+        writing-mode: vertical-lr;
+        text-orientation: sideways;
+        transform: rotate(180deg);
+    }
+
+    /* dés */
+    .de{
+        margin: .1rem;
+        padding: .5rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        text-align: center;
+        font-size: 1.2rem;
+        z-index: 1;
+        border: 1px solid black;
+        border-radius: .2rem;
+    }
+
+    .selectDe{
+        transform: translateY(-1.2rem);
+    }
 }
