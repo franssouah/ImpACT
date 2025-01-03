@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>ImpACT_v0.3</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+		<link rel="shortcut icon" type="image/png" href="assets/imgs/stormhead.png"/>
+		<script src="assets/js/jquery-3.7.1.js"></script>
+		<script src="assets/js/script.js"></script>
+	</head>	
+	<body> 
+		<!-- Page principale -------------------------------------------------------------------------->
+		<!-- bandeau sup -->
+		<section class="ligne centreV alignT">
+            <!--Boutons-->
+            <div class="colonne">
+				<button id="boutonTuileRandom" class="boutonBleu boutonLarge">Explorer</button>
+				<button id="boutonHistorique" class="marginT boutonGris boutonLarge boutonFin">Historique</button>
+			</div>
+			<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
+			<div class="colonne">
+				<button id="boutonFinTour" class="marginL boutonVert boutonLarge">Fin de Tour</button>
+				<!--<button id="boutonCaisse" class="marginT boutonGris boutonLarge boutonFin">Ouvrir</button>-->
+			</div>
+		</section>
+
+		<!--Zone centrale-->
+		<section id="zoneCentrale">
+			<!-- Objectif -->
+			<div id="divObjectif" class="colonne centre">
+				<h2>Objectif de la mission : </h2>
+				<p id="texteObjectif"></p>
+				<img id="imageObjectif" src="" class="imageTuile">
+				<p id="nomObjectif"></p>
+				<!--<button id="boutonValiderObjectif" class="boutonRouge">Fermer</button>-->
+			</div>
+		</section>
+
+		<!--Bas de page-->
+		<section id="basDePage" class="colonne centre">
+			
+			<div id="divAlarme" class="ligne centre">
+				<h3 class="margin1">Alarme : </h3>
+				<button id="boutonAlarmeMoins" class="boutonRond">-</button>
+				<p id="nvAlarme"></p>
+				<button id="boutonAlarmePlus" class="boutonRond">+</button>
+			</div>
+		</section>
+		
+
+        <!-- zone affichage popups-->
+        <section class="ligne centre">
+			<!--popupChoixMission-->
+			<div id="popupChoixMission" class="popup colonne centre">
+				<h2>Choix de la mission :</h2>
+				<div class="ligne">
+					<p class="margin1">Lieu : </p>
+					<select id="selectTheme">
+						<option value="imp">Base impériale</option>
+					</select>
+				</div>
+				<div class="ligne">
+					<p class="margin1">Objectif : </p>
+					<select id="selectObjectif">
+						<option value="fuir">Fuite</option>
+						<option value="liberer">Sauvetage</option>
+						<option value="sabotage">Sabotage</option>
+						<option value="piratage">Piratage</option>
+					</select>
+				</div>
+				<div class="ligne centre">
+					<p class="margin1">Joueurs : </p>
+					<input type="checkbox" id="joueurVert" name="jVert" value="jVert" class="switch switchVert"/>
+					<input type="checkbox" id="joueurBleu" name="jBleu" value="jBleu" class="switch switchBleu"/>
+					<input type="checkbox" id="joueurRouge" name="jRouge" value="jRouge" class="switch switchRouge"/>
+				</div>
+				<button id="boutonValiderMission" class="margin1 boutonVert boutonLarge">Go !</button>
+			</div>
+
+			<!--popupBriefing-->
+			<div id="popupBriefing" class="popup colonne centre">
+				<h3>Mise en place de la Mission :</h3>
+				<p>Placez vos Héros et le jeton Départ sur cette Tuile :</p>
+				<img id="imageTuileDepart" src="" class="imageTuile">
+				<p id="tuileDepart"></p>
+				<p>Pour démarrer la mission, cliquez sur OK.</p>
+				<button id="boutonValiderBriefing" class="boutonVert boutonLarge">OK</button>
+			</div>
+
+            <!--popupTuileRandom-->
+            <div id="popupTuileRandom" class="popup colonne centre">
+                <h2>Placez la tuile suivante derrière la porte ouverte :</h2>
+				<img id="imageTuile" src="" class="imageTuile">
+				<div class="ligne centre">
+					<p id="explorer"></p>
+					<img id="imageCaisse" src="" class="marginL"/>
+				</div>
+                
+				<p id="messageObjectifTrouve"></p>
+				<div class="ligne borderTBnoir centre">
+					<h3>Ennemis dans la salle :</h3>
+					<p id="explorerMobs" class="marginL"></p>
+					<img id="imageMob" src="" class="marginL imageMob">
+					<img id="imageMobSurcouche" src="" class="marginL imageMob">
+					<h3 class="marginL">x</h3>
+					<h3 id="nbMobs"></h3>
+					<h3 id="directionMob" class="marginL"></h3>
+				</div>
+                <button id="boutonValider" class="boutonVert boutonLarge">OK</button>
+            </div>
+
+			<!-- popupHistorique -->
+			<div id="popupHistorique" class="popup colonne centreH">
+				<h3>Historique des Tuiles tirées : </h3>
+				<ol id="listeHistorique" class=""></ol>
+				<button id="boutonFermerHistorique" class="boutonVert boutonLarge">Fermer</button>
+			</div>
+
+			<!--popupActivation-->
+			<div id="popupActivation" class="popup colonne centreH">
+                <h2>Activation des Ennemis de la Tuile choisie :</h2>
+				<div class="borderTB colonne centre">
+					<div class="ligne centre">
+						<h3 class="margin1">Alerte : </h3>
+						<input type="checkbox" id="persoVert" name="vert" value="vert" class="switch switchVert"/>
+						<input type="checkbox" id="persoBleu" name="bleu" value="bleu" class="switch switchBleu"/>
+						<input type="checkbox" id="persoRouge" name="rouge" value="rouge" class="switch switchRouge"/>
+						<input type="checkbox" id="alerteJaune" name="jaune" value="jaune" class="switch switchJaune marginL"/>
+						<button id="boutonValiderActivation" class="boutonVert boutonCarre marginL">Action !</button>
+					</div>
+					
+				</div>
+				
+				<div id="zoneListeActions" class="invisible colonne centre">
+					<div class="ligne centre">
+						<div class="colonne">
+							<h3>Action → tous les Ennemis de la Tuile : </h3>
+							<ul id="listeActions">
+								<!--injection js-->
+							</ul>
+						</div>
+						<button id="boutonRefreshAction" class="boutonBleu boutonCarre marginL">↻</button>
+					</div>
+					
+					<div id="affichageCombat" class="colonne borderTB centre">
+						<h3 class="marginB0">Attaque :</h3>
+						<div class="ligne centre marginB0">
+							<p>Dés : </p>
+							<select id="nbDes">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+							</select>
+							<p>Défense : </p>
+							<select id="defenseDes">
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+							</select>
+							<button id="boutonLancerDes" class="marginL boutonBleu">Lancer les dés</button>
+							<p id="nbReussites"></p>
+						</div>
+						<div id="zoneAffichageDes" class="ligne"></div>
+					</div>
+				</div>
+				<button id="boutonFermerActivation" class="boutonRouge boutonLarge">Fermer</button>
+            </div>
+
+			<!-- popupEvenement-->
+			<div id="popupEvenement" class="popup colonne centre">
+				<h2>Evènement imprévu !</h2>
+				<div class="colonne centre">
+					<p id="texteEvenement"></p>
+					<img id="imageEvenementMap" src="" class="imageTuile"/>
+					<img id="imageEvenementMob" src="" class="imageMob margin1"/>
+				</div>
+				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge">Fermer</button>
+			</div>
+
+			<!-- popupFinTour-->
+			<div id="popupFinTour" class="popup colonne centre">
+				<h2>Fin du Tour :</h2>
+				<div class="ligne centre">
+					<p>Ennemis en alerte : </p>
+					<input type="checkbox" id="mobsAlerte" name="alerte" value="alerte" class="switch switchRouge"/>
+				</div>
+				<button id="boutonValiderFinTour" class="boutonVert margin1 boutonLarge">OK</button>
+
+				<div id="divAffichageRenforts" class="invisible borderT colonne centre">
+					<h3 id="affichageRenforts"></h3>
+					<div class="ligne centre">
+						<p id="RenfortsMobs" class="marginL"></p>
+						<img id="imageRenforts" src="" class="marginL imageMob">
+						<h3 class="marginL">x</h3>
+						<h3 id="nbRenforts"></h3>
+					</div>
+					
+					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge">Fermer</button>
+				</div>
+			</div>
+        </section>
+
+
+
+
+	</body>
+</html>
