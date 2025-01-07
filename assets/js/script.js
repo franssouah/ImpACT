@@ -15,7 +15,7 @@ $(document).ready(function() {  /* chargement du DOM */
     // BdD Tuiles
     $tuilesImp=[
         "c19a","c20a","c21a","c22a","c23a","c24a","c25a","c26a","c27a","c28a","c29a","c30a","c31a","c33a",
-        "o01a","o02a","o03a","o04a","o05a","o07a","o07a",
+        "o01a","o02a","o03a","o04a","o05a","o06a","o07a",
         "j02a","j07a","j10a","j13a"
     ];
 
@@ -73,6 +73,17 @@ $(document).ready(function() {  /* chargement du DOM */
         "Se déplacer vers ↘ (Mouvement max 6)",
         "Se déplacer vers ↙ (Mouvement max 6)"
     ]
+    //BdD évènements
+    $evenements=[
+        ["<strong>Comité d'accueil !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Garde_Royal","x2"],
+        ["<strong>Vous ne sortirez pas d'ici !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Trooper_Lourd","x2"],
+        ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Stormtrooper","x4"],
+        ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Droide_Sonde","x2"],
+        ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.","",""],
+        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","",""]
+    ]
+    console.log($evenements[1]);
+    console.log($evenements.length);
 
     //BdD directions
     $directions=["←","→","↑","↓"];
@@ -146,24 +157,33 @@ $(document).ready(function() {  /* chargement du DOM */
             //nb de troopers :
             if($mobRandom === "Stormtrooper" || $mobRandom === "Jet_Trooper"){
                 if($Rang2 === false){
-                    $(nbMobs).html(Math.floor(Math.random()*($nbJoueurs))+1);
+                    $(nbMobs).html("x"+(Math.floor(Math.random()*($nbJoueurs))+1));
                 }else{
-                    $(nbMobs).html($nbJoueurs);
+                    $(nbMobs).html("x"+$nbJoueurs);
                 }
             }else{
-                $(nbMobs).html(1);
+                $(nbMobs).html("x"+1);
             }
             //nb gardes royaux
             if($mobRandom === "Garde_Royal" && $nbJoueurs>2){
-                $(nbMobs).html(2);
+                $(nbMobs).html("x"+2);
+            }
+            // aucun
+            if($mobRandom === "aucun"){
+                $(nbMobs).html("");
             }
     }
     function fonctionEvenement(){
+        //appel random BdD
+        $random=Math.floor(Math.random()*($evenements.length));
+        $evenement=$evenements[$random];
+        //remplissage popup
         $("#popupEvenement").addClass("visible");
-        $("#texteEvenement").html($texteEvenement);
+        $("#texteEvenement").html($evenement[0]);
         $("#imageEvenementMap").attr("src", "assets/imgs/maps/"+$imageEvenementMap+".png");
-        $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+".png");
-        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$imageEvenementMob+"-surcouche.png");
+        $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$evenement[1]+".png");
+        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$evenement[1]+"-surcouche.png");
+        $("#evenementMobNb").html($evenement[2]);
     }
 
     // gestion Alarme
@@ -241,9 +261,7 @@ $(document).ready(function() {  /* chargement du DOM */
                 $messageObjectifTrouve="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                 // évènement :
-                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif;
-                    $imageEvenementMob="Garde_Royal";
             }else if($objectifMission === "liberer"){
             // MISSION SAUVETAGE
                 $tuileDepart="c22a";
@@ -256,15 +274,13 @@ $(document).ready(function() {  /* chargement du DOM */
                 $texteObjectif2="Escortez le prisonnier jusqu'à la Tuile de départ :";
                 $messageObjectifTrouve2="Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 // évènement :
-                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif2;
-                    $imageEvenementMob="Garde_Royal";
             }else if($objectifMission === "sabotage"){
             // MISSION SABOTAGE
                 $tuileDepart="c19a";
                 $tuileObjectif="o02a";
                 $texteObjectif="Libérez votre vaisseau en désactivant le champ de force depuis cette Tuile :";
-                $messageObjectifTrouve="Vous avez désactivé le champ de force ! Revenez vite au hangar pour fuir à bord de votre vaisseau et gagner la mission.";
+                $messageObjectifTrouve="Vous avez désactivé le champ de force ! Revenez vite au hangar pour fuir à bord de votre vaisseau et réussir la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                 // ajout conditions objectif 2:
                 $tuileObjectif2=$tuileDepart;
@@ -273,9 +289,20 @@ $(document).ready(function() {  /* chargement du DOM */
                 // modif Alarme initiale
                 $Alarme=3;
                 // évènement :
-                    $texteEvenement="<strong>Comité d'accueil !</strong> <br> Placez 2 Gardes royaux sur la Tuile Objectif. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>";
                     $imageEvenementMap=$tuileObjectif2;
-                    $imageEvenementMob="Garde_Royal";
+            }else if($objectifMission === "piratage"){
+                // MISSION SAUVETAGE
+                    $tuileDepart="c27a";
+                    $tuileObjectif="c20a";
+                    $texteObjectif="Vous devez trouver cette Tuile afin que votre droïde pirate le système informatique de la base. Vous obtiendrez alors les coordonnées de la Tuile de sortie, afin de vous enfuir.";
+                    $messageObjectifTrouve="Votre droïde a piraté le système informatique de la base !";
+                    fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
+                    // ajout conditions objectif 2:
+                    $tuileObjectif2="o06a";
+                    $texteObjectif2="Fuyez jusqu'à cette Tuile pour réussir la mission :";
+                    $messageObjectifTrouve2="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
+                    // évènement :
+                        $imageEvenementMap=$tuileObjectif2;
             }
 
             // ajout dans le popupBriefing
@@ -344,12 +371,15 @@ $(document).ready(function() {  /* chargement du DOM */
                     fonctionEvenement();
                 }
 
-                // vérif existence objectif 2
-                if($texteObjectif2 != ""){
+                if($tuileObjectif2!=""){
                     $("#texteObjectif").html($texteObjectif2);
                     $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
                     $("#nomObjectif").html($tuileObjectif2);
                 }
+            }
+            // vérif existence objectif 2
+            if($objectifTrouve && ($tuileRandom === $tuileObjectif2)){
+                $("#messageObjectifTrouve").html($messageObjectifTrouve2);
             }
 
         // tirage au sort Mob
@@ -546,10 +576,13 @@ $(document).ready(function() {  /* chargement du DOM */
                 $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br>Arrivée de Renforts (par la porte la plus proche) :")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
+                    if($Alarme>6){
+                        fonctionTirageMob("#imageRenforts2", "#RenfortsMobs2", "#nbRenforts2");
+                    }
 
                     // si objectif trouvé
                     if ($objectifTrouve){
-                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche située entre les Héros et l'Objectif, et peuvent faire un Mouvement (max 8) vers l'Objectif.")
+                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Ils peuvent faire un Mouvement (max 8) vers l'Objectif.")
                     }
                 // augmentation Alarme
                 fonctionAlarmePlus();
@@ -559,17 +592,33 @@ $(document).ready(function() {  /* chargement du DOM */
                     }
                     
             }else{
-                $random=Math.floor(Math.random()*($Alarme)+1);
+                $random=Math.floor(Math.random()*($Alarme+1));
+                console.log($random);
                 // arrivée aléatoire conditionnée par nv Alarme
-                if($random >= ($Alarme-2)){
+                if($random >= $Alarme || ($Rang2 && ($random >= ($Alarme-2))) || $Rang3){
                     $("#affichageRenforts").html("Arrivée de Renforts (par la porte fermée la plus proche) :")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
+                    // 2ème tirage si alarme > 6
+                    if($Alarme>6){
+                        fonctionTirageMob("#imageRenforts2", "#RenfortsMobs2", "#nbRenforts2");
+                    }
+                    // si objectif trouvé
+                    if ($objectifTrouve){
+                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Ils peuvent faire un Mouvement (max 8) vers l'Objectif.")
+                    }
                 }else{
                     $("#affichageRenforts").html('La situation est sous contrôle !');
+                    //RAZ renforts 1
                     $("#RenfortsMobs").html('');
                     $("#imageRenforts").attr("src","");
+                    $("#imageRenfortsSurcouche").attr("src","");
                     $("#nbRenforts").html(''); 
+                    //RAZ renforts 2
+                    $("#RenfortsMobs2").html('');
+                    $("#imageRenforts2").attr("src","");
+                    $("#nbRenforts2").html(''); 
+                    $("#imageRenforts2Surcouche").attr("src","");
                 }
                 
             }
