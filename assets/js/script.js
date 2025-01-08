@@ -27,14 +27,13 @@ $(document).ready(function() {  /* chargement du DOM */
         "aucun"
     ];
     $mobsStormR2=[
-        "Trooper_Lourd",
-        "Jet_Trooper",
+        "Trooper_Lourd","Trooper_Lourd",
+        "Jet_Trooper","Jet_Trooper",
         "Droide_Sonde",
+        "Officier",
         "Operateur_E-Web"
     ];
     $mobsStormR3=[
-        "Trooper_Lourd",
-        "Jet_Trooper",
         "Droide_Sentinelle","Droide_Sentinelle",
         "Garde_Royal","Garde_Royal"
     ];
@@ -291,14 +290,15 @@ $(document).ready(function() {  /* chargement du DOM */
                 // évènement :
                     $imageEvenementMap=$tuileObjectif2;
             }else if($objectifMission === "piratage"){
-                // MISSION SAUVETAGE
+                // MISSION PIRATAGE
                     $tuileDepart="c27a";
                     $tuileObjectif="c20a";
                     $texteObjectif="Vous devez trouver cette Tuile afin que votre droïde pirate le système informatique de la base. Vous obtiendrez alors les coordonnées de la Tuile de sortie, afin de vous enfuir.";
                     $messageObjectifTrouve="Votre droïde a piraté le système informatique de la base !";
                     fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                     // ajout conditions objectif 2:
-                    $tuileObjectif2="o06a";
+                    $random=Math.floor(Math.random()*($tuilesMission.length));
+                    $tuileObjectif2=$tuilesMission[$random];;
                     $texteObjectif2="Fuyez jusqu'à cette Tuile pour réussir la mission :";
                     $messageObjectifTrouve2="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                     // évènement :
@@ -419,7 +419,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#listeHistorique").append("<li>"+$tuileRandom+"</li>");
 
         // vérif possibilité ajout tuile objectif
-        if($tuilesTirees.length === 8){
+        if($tuilesTirees.length === 5){
             $tuilesMission[$tuilesMission.length]=$tuileObjectif;
         }
 
@@ -442,6 +442,8 @@ $(document).ready(function() {  /* chargement du DOM */
     /* 5- Activation Mobs --> bouton ImpACT
     *****************************************/
     $("#boutonImpAct").on("click", function(){
+        $("#zoneListeActions").addClass("invisible");
+        $("#defenseDes").val("4").change();
         // affichage du popupActivation
         $("#popupActivation").addClass('visible');
 
@@ -454,7 +456,7 @@ $(document).ready(function() {  /* chargement du DOM */
         // boutonValiderActivation
         $("#boutonValiderActivation").on("click", function(){
             // visibilité
-            $("#zoneListeActions").toggleClass("invisible");
+            $("#zoneListeActions").removeClass("invisible");
             $("#zoneAffichageDes").html("");
             // vérif des switchs
             $herosVertRepere=$("#persoVert").is(":checked");
@@ -573,7 +575,7 @@ $(document).ready(function() {  /* chargement du DOM */
             // vérif switch Alerte
             if($("#mobsAlerte").is(":checked")){
                 // Arrivée de Renforts
-                $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br>Arrivée de Renforts (par la porte la plus proche) :")
+                $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br><br>Arrivée de Renforts (par la porte la plus proche). <br><br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
                     if($Alarme>6){
