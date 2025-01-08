@@ -21,6 +21,10 @@
 			<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
 			<div class="colonne">
 				<button id="boutonFinTour" class="marginL boutonVert boutonLarge">Fin de Tour</button>
+				<div class="ligne centre texteBlanc">
+					<p>Tour : </p>
+					<p id="compteTour" class="marginL"></p>
+				</div>
 				<!--<button id="boutonCaisse" class="marginT boutonGris boutonLarge boutonFin">Ouvrir</button>-->
 			</div>
 		</section>
@@ -199,49 +203,51 @@
             </div>
 
 			<!-- popupEvenement-->
-			<div id="popupEvenement" class="popup colonne centre">
+			<div id="popupEvenement" class="popup colonne centreH">
 				<h2>Evènement imprévu !</h2>
 				<div class="colonne centre">
 					<p id="texteEvenement"></p>
 					<img id="imageEvenementMap" src="" class="imageTuile"/>
+					<p id="texteEvenementMap" class="textePetit margin0"></p>
 					<div class="ligne centre">
 						<img id="imageEvenementMob" src="" class="imageMob margin1"/>
-						<img id="imageEvenementMobSurcouche" src="" class="marginL imageMob imageMobSurcouche">
+						<img id="imageEvenementMobSurcouche" src="" class="imageMob imageMobSurcouche">
 						<p id="evenementMobNb" class="decalageD"></p>
 					</div>
 					
 				</div>
-				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge">Fermer</button>
+				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge boutonBasPage">Fermer</button>
 			</div>
 
 			<!-- popupFinTour-->
-			<div id="popupFinTour" class="popup colonne centre">
+			<div id="popupFinTour" class="popup colonne centreH">
 				<h2>Fin du Tour :</h2>
 				<div class="ligne centre">
 					<p>Ennemis en alerte : </p>
 					<input type="checkbox" id="mobsAlerte" name="alerte" value="alerte" class="switch switchRouge marginL"/>
+					<button id="boutonValiderFinTour" class="boutonVert marginL boutonCarre">OK</button>
 				</div>
-				<button id="boutonValiderFinTour" class="boutonVert margin1 boutonLarge">OK</button>
+				
 
 				<div id="divAffichageRenforts" class="invisible borderT colonne centre">
-					<h3 id="affichageRenforts"></h3>
+					<p id="affichageRenforts"></p>
 					<!--renforts 1-->
 					<div class="ligne centre">
 						<p id="RenfortsMobs" class="marginL"></p>
 						<img id="imageRenforts" src="" class="marginL imageMob">
 						<img id="imageRenfortsSurcouche" src="" class="marginL imageMob imageMobSurcouche">
-						<h3 id="nbRenforts" class="marginL decalageD"></h3>
+						<h3 id="nbRenforts" class="decalageD"></h3>
 					</div>
 					<!--renforts 2-->
 					<div class="ligne centre marginT">
 						<p id="RenfortsMobs2" class="marginL"></p>
 						<img id="imageRenforts2" src="" class="marginL imageMob">
 						<img id="imageRenforts2Surcouche" src="" class="marginL imageMob imageMobSurcouche">
-						<h3 id="nbRenforts2" class="marginL decalageD"></h3>
+						<h3 id="nbRenforts2" class="decalageD"></h3>
 					</div>
-					<p id="messageRenforts"></p>
+					<p id="messageRenforts" class="textePetit"></p>
 					
-					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge">Fermer</button>
+					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge boutonBasPage">Fermer</button>
 				</div>
 			</div>
         </section>

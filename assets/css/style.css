@@ -86,10 +86,16 @@ h3{
 .marginT{
     margin-top: .5rem;
 }
+.margin0{
+    margin: 0;
+}
 
 /* texte */
 .texteBlanc{
     color: var(--blanc);
+}
+.textePetit{
+    font-size: 1rem;
 }
 
 /* Zones
@@ -269,6 +275,11 @@ button{
     height: 3rem;
     border-radius: 2rem;
     font-size: 1.5rem;
+}
+
+.boutonBasPage{
+    position: absolute;
+    bottom: 1rem;
 }
 
 /* Checkbox [cf tuto : https://www.youtube.com/watch?v=D-pItG2wceM]

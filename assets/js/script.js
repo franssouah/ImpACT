@@ -79,7 +79,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Stormtrooper","x4"],
         ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Droide_Sonde","x2"],
         ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.","",""],
-        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","",""]
+        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","",""],
+        ["<strong>C'est un piège !</strong> <br> Si un Héros se trouve à l'entrée de cette Tuile, déplacez-le d'une case vers l'intérieur. Puis placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées ont une résistance de 5 dés.</strong>","Stormtrooper","x4"]
     ]
     console.log($evenements[1]);
     console.log($evenements.length);
@@ -115,6 +116,10 @@ $(document).ready(function() {  /* chargement du DOM */
         $texteEvenement="";
         $imageEvenementMap="";
         $imageEvenementMob="";
+
+        //Compte-tour
+        $numeroTour=1;
+        $("#compteTour").html($numeroTour);
     
 
     // choix Mission
@@ -180,6 +185,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#popupEvenement").addClass("visible");
         $("#texteEvenement").html($evenement[0]);
         $("#imageEvenementMap").attr("src", "assets/imgs/maps/"+$imageEvenementMap+".png");
+        $("#texteEvenementMap").html($imageEvenementMap);
         $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$evenement[1]+".png");
         $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$evenement[1]+"-surcouche.png");
         $("#evenementMobNb").html($evenement[2]);
@@ -564,6 +570,8 @@ $(document).ready(function() {  /* chargement du DOM */
     *****************************************/
     $("#boutonFinTour").on("click", function(){
         $AlarmeInitiale=$Alarme;
+        $numeroTourInitial=$numeroTour;
+        console.log("num initial : "+$numeroTourInitial);
         $("#popupFinTour").addClass("visible");
         $("#boutonValiderFinTour").removeClass("invisible");
         $("#mobsAlerte").prop("checked", false);
@@ -575,7 +583,7 @@ $(document).ready(function() {  /* chargement du DOM */
             // vérif switch Alerte
             if($("#mobsAlerte").is(":checked")){
                 // Arrivée de Renforts
-                $("#affichageRenforts").html("Augmentation du niveau d'Alarme ! <br><br>Arrivée de Renforts (par la porte la plus proche). <br><br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
+                $("#affichageRenforts").html("<strong>Augmentation du niveau d'Alarme !</strong> <br><br>Arrivée de Renforts (porte la plus proche). <br><br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
                     if($Alarme>6){
@@ -625,6 +633,29 @@ $(document).ready(function() {  /* chargement du DOM */
                 
             }
 
+            // gestion compte-tour
+            
+            $numeroTour++;
+                // régulation bug compte-tours exponentiel
+                for ($i=0; $i<10; $i++){
+                    if ($numeroTour > ($numeroTourInitial+1)){
+                    $numeroTour--;
+                    console.log("num tour : "+$numeroTour);
+                    }
+                }
+            $("#compteTour").html($numeroTour);
+                // ajout d'évènement tous les 5 tours
+                if ($numeroTour%5 == 0){
+                    $imageEvenementMapTampon=$imageEvenementMap;
+                    $imageEvenementMap=$tuilesTirees[Math.floor(Math.random()*($tuilesTirees.length))];
+                    fonctionEvenement();
+                    $imageEvenementMap=$imageEvenementMapTampon;
+                }
+                
+                
+
+
+            // boutonFermerFinTour
             $("#boutonFermerFinTour").on("click", function(){
                 $("#popupFinTour").removeClass("visible");
                 $("#boutonValiderFinTour").addClass("invisible");
