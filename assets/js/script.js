@@ -605,7 +605,7 @@ $(document).ready(function() {  /* chargement du DOM */
                 $random=Math.floor(Math.random()*($Alarme+1));
                 console.log($random);
                 // arrivée aléatoire conditionnée par nv Alarme
-                if($random >= $Alarme || ($Rang2 && ($random >= ($Alarme-2))) || $Rang3){
+                if($random < $Alarme || $Rang3){
                     $("#affichageRenforts").html("Arrivée de Renforts (par la porte fermée la plus proche) :")
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
