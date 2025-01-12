@@ -6,6 +6,7 @@
     --gris: rgb(100,100,100);
     --grisClair: rgb(180,180,180);
     --rouge: rgb(200,50,50);
+    --rougeSombre: rgb(125,0,0);
     --vert: rgb(50,200,50);
     --bleu: rgb(50,50,200);
     --jaune: rgb(220,220,0);
@@ -118,7 +119,7 @@ h3{
 }
 
 /* Dés */
-#zoneAffichageDes{
+#zoneAffichageDes, #zoneAffichageDesBoss{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -180,7 +181,7 @@ h3{
     z-index: 99;
 }
 
-#popupActivation, #popupChoixMission, #popupFinTour, #popupHistorique, #popupEvenement{
+#popupActivation, #popupBoss, #popupChoixMission, #popupFinTour, #popupHistorique, #popupEvenement{
     background-color: var(--gris);
     width: 80%;
 }
@@ -259,6 +260,10 @@ button{
 
 .boutonRouge{
     background-color: var(--rouge);
+    color: var(--blanc);
+}
+.boutonRougeSombre{
+    background-color: var(--rougeSombre);
     color: var(--blanc);
 }
 
@@ -348,7 +353,7 @@ button{
         width: 90%;
     }
     
-    #popupActivation, #popupChoixMission, #popupFinTour, #popupHistorique, #popupEvenement{
+    #popupActivation, #popupBoss, #popupChoixMission, #popupFinTour, #popupHistorique, #popupEvenement{
         background-color: var(--grisClair);
         width: 90%;
     }

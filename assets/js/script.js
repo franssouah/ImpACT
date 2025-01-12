@@ -21,24 +21,25 @@ $(document).ready(function() {  /* chargement du DOM */
 
     // BdD Mobs
     $mobsStormR1=[
-        "Stormtrooper","Stormtrooper","Stormtrooper","Stormtrooper","Stormtrooper",
-        "Droide_Sonde",
-        "Officier",
-        "aucun"
+        //"nom", "nb dés"
+        ["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],
+        ["Droide_Sonde","3"],
+        ["Officier","2"],
+        ["aucun","0"]
     ];
     $mobsStormR2=[
-        "Trooper_Lourd","Trooper_Lourd",
-        "Jet_Trooper","Jet_Trooper",
-        "Droide_Sonde",
-        "Officier",
-        "Operateur_E-Web"
+        ["Trooper_Lourd","3"],["Trooper_Lourd","3"],
+        ["Jet_Trooper","2"],["Jet_Trooper","2"],
+        ["Droide_Sonde","3"],
+        ["Officier","2"],
+        ["Operateur_E-Web","5"]
     ];
     $mobsStormR3=[
-        "Droide_Sentinelle","Droide_Sentinelle",
-        "Garde_Royal","Garde_Royal"
+        ["Droide_Sentinelle","5"],["Droide_Sentinelle","5"],
+        ["Garde_Royal","3"],["Garde_Royal","3"]
     ];
     $mobsStormBoss=[
-        "Dark_Vador"
+        ["Dark_Vador","20"]
     ];
 
     // BdD actions
@@ -61,7 +62,7 @@ $(document).ready(function() {  /* chargement du DOM */
     $actionsVsBruit=[
         "Se déplacer vers le Marqueur Jaune (Mouvement max 6) puis regarder tout autour",
         "Se déplacer vers le Marqueur Jaune (Mouvement max 12) puis regarder tout autour",
-    ]
+    ];
     $actionsRAS=[
         "Se déplacer vers ↖ (Mouvement max 4)",
         "Se déplacer vers ↗ (Mouvement max 4)",
@@ -71,19 +72,29 @@ $(document).ready(function() {  /* chargement du DOM */
         "Se déplacer vers ↗ (Mouvement max 6)",
         "Se déplacer vers ↘ (Mouvement max 6)",
         "Se déplacer vers ↙ (Mouvement max 6)"
+    ];
+    $actionsVador=[
+        "Mouvement (max 12) vers Héros le plus proche, Attirer (portée max 6), Attaquer",
+        "Mouvement (max 15) vers Héros le plus proche, Attaquer",
+        "Mouvement (max 12) vers Héros le plus proche, Etrangler (4 dés, portée max 8), Attaquer",
+        "Mouvement (max 12) vers Héros le plus proche, Eclair (8 dés, portée max 8)",
+        "Attirer (portée max 10), Attaquer, Mouvement vers le Héros le plus proche"
     ]
     //BdD évènements
-    $evenements=[
-        ["<strong>Comité d'accueil !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Garde_Royal","x2"],
-        ["<strong>Vous ne sortirez pas d'ici !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Trooper_Lourd","x2"],
-        ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Stormtrooper","x4"],
-        ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Droide_Sonde","x2"],
-        ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.","",""],
-        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","",""],
-        ["<strong>C'est un piège !</strong> <br> Si un Héros se trouve à l'entrée de cette Tuile, déplacez-le d'une case vers l'intérieur. Puis placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées ont une résistance de 5 dés.</strong>","Stormtrooper","x4"]
+    $evenementsStorm=[
+        // 0 "texte", 1 "Mob", 2 "Dés", 3 "nb"
+        ["<strong>Comité d'accueil !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Garde_Royal","3","x2"],
+        ["<strong>Vous ne sortirez pas d'ici !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Trooper_Lourd","3","x2"],
+        ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Stormtrooper","1","x4"],
+        ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Droide_Sonde","3","x2"],
+        ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.","aucun","0",""],
+        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","aucun","0",""],
+        ["<strong>C'est un piège !</strong> <br> Si un Héros se trouve à l'entrée de cette Tuile, déplacez-le d'une case vers l'intérieur. Puis placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées ont une résistance de 5 dés.</strong>","Stormtrooper","1","x4"]
     ]
-    console.log($evenements[1]);
-    console.log($evenements.length);
+    $EvenementsStormBoss=[
+        // 0 "texte", 1 "Mob", 2 "Dés", 3 "nb"
+        ["<strong>Fuyez, pauvres fous !</strong> <br> Faites entrer le Boss par la Porte la plus proche des Héros.<br><br><strong>Il s'activera à chaque Tour, juste après les autres Ennemis, avec le bouton BOSS.</strong>","Dark_Vador","20",""],
+    ]
 
     //BdD directions
     $directions=["←","→","↑","↓"];
@@ -150,14 +161,15 @@ $(document).ready(function() {  /* chargement du DOM */
     function fonctionTirageMob(image, nomMob, nbMobs){
         // tirage au sort Mob
         $random=Math.floor(Math.random()*($mobsMission.length));
-        $mobRandom=$mobsMission[$random];
+        $mobRandom=$mobsMission[$random][0];
+        $mobRandomDes=$mobsMission[$random][1];
         // affichage dans le html
             // conversion chaine de caractères
             $nomMobRandom=$mobRandom.replace(/[_]/g,' ');
         
         $(nomMob).html($nomMobRandom);
         $(image).attr("src", "assets/imgs/mobs/"+$mobRandom+".png");
-        $(image+"Surcouche").attr("src", "assets/imgs/mobs/"+$mobRandom+"-surcouche.png");
+        $(image+"Surcouche").attr("src", "assets/imgs/mobs/"+$mobRandomDes+".png");
             //nb de troopers :
             if($mobRandom === "Stormtrooper" || $mobRandom === "Jet_Trooper"){
                 if($Rang2 === false){
@@ -187,8 +199,32 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#imageEvenementMap").attr("src", "assets/imgs/maps/"+$imageEvenementMap+".png");
         $("#texteEvenementMap").html($imageEvenementMap);
         $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$evenement[1]+".png");
-        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$evenement[1]+"-surcouche.png");
-        $("#evenementMobNb").html($evenement[2]);
+        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$evenement[2]+".png");
+        $("#evenementMobNb").html($evenement[3]);
+    }
+
+    function fonctionEvenementBoss(){
+        //appel random BdD
+        $random=Math.floor(Math.random()*($evenementsBoss.length));
+        $evenement=$evenementsBoss[$random];
+        // bouton Boss
+        $("#boutonBoss").removeClass("invisible");
+        //remplissage popup
+        $("#popupEvenement").addClass("visible");
+        $("#texteEvenement").html($evenement[0]);
+        $("#imageEvenementMap").attr("src", "assets/imgs/mobs/aucun.png");
+        $("#texteEvenementMap").html("");
+        $("#imageEvenementMob").attr("src", "assets/imgs/mobs/"+$evenement[1]+".png");
+        $("#imageEvenementMobSurcouche").attr("src", "assets/imgs/mobs/"+$evenement[2]+".png");
+        $("#evenementMobNb").html($evenement[3]);
+        // message objectif boss
+        if($objectif === "vador"){
+            if($tuileObjectif2!=""){
+                $("#texteObjectif").html($texteObjectif2);
+                $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
+                $("#nomObjectif").html($tuileObjectif2);
+            }
+        }
     }
 
     // gestion Alarme
@@ -211,13 +247,17 @@ $(document).ready(function() {  /* chargement du DOM */
         }
 
         //Ajout de mobs Boss [Alarme = 9]
+        
         if($Alarme>8 && $RangBoss===false){
             $RangBoss=true;
-            for($i=0; $i<$mobsStormBoss.length; $i++){
+            fonctionEvenementBoss();
+            /*for($i=0; $i<$mobsStormBoss.length; $i++){
                 $mobsMission[$mobsMission.length]=$mobsStormBoss[$i];
             }
-            console.log($mobsMission);
+            $("#boutonBOSS").removeClass("invisible");
+            console.log($mobsMission);*/
         }
+        
     }
     function fonctionAlarmePlus(){
         console.log("+");
@@ -250,6 +290,9 @@ $(document).ready(function() {  /* chargement du DOM */
             if($themeMission === "imp"){
                 $tuilesMission=$tuilesImp;
                 $mobsMission=$mobsStormR1;
+                $mobsBoss=$mobsStormBoss;
+                $evenements=$evenementsStorm;
+                $evenementsBoss=$EvenementsStormBoss;
             }
 
             // objectif
@@ -257,6 +300,8 @@ $(document).ready(function() {  /* chargement du DOM */
             console.log($objectifMission);
             $objectifTrouve=false;
             $objectifTrouve2=false;
+                //objectif autre qu'une tuile
+                $objectif="";
 
             if($objectifMission === "fuir"){
             // MISSION FUITE
@@ -309,6 +354,23 @@ $(document).ready(function() {  /* chargement du DOM */
                     $messageObjectifTrouve2="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                     // évènement :
                         $imageEvenementMap=$tuileObjectif2;
+            }else if($objectifMission === "diversion"){
+                // MISSION DIVERSION
+                    $tuileDepart="c25a";
+                    $tuileObjectif="";
+                    $objectif="vador";
+                    $texteObjectif="Vous devez faire un maximum de bruit pour attirer l'attention de Dark Vador.<br> Dès que vous l'aurez attiré, fuyez !";
+                    $messageObjectifTrouve="C'est bon, vous avez attiré Dark Vador. Maintenant, fuyez vite !";
+                    fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
+                    // ajout conditions objectif 2:
+                    $tuileObjectif2=$tuileDepart;
+                    $texteObjectif2="Fuyez vite vers la sortie !";
+                    $messageObjectifTrouve2="Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
+                    // modif Alarme initiale
+                    $Alarme=1;
+                    // évènement :
+                        $imageEvenementMap=$tuileObjectif2;    
+                
             }
 
             // ajout dans le popupBriefing
@@ -318,6 +380,11 @@ $(document).ready(function() {  /* chargement du DOM */
             //affichage tuile objectif
             $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif+".png");
             $("#nomObjectif").html($tuileObjectif);
+                // si ojectif autre que Tuile
+                if($objectif === "vador"){
+                    $("#imageObjectif").attr("src", "assets/imgs/mobs/Dark_Vador.png");
+                    $("#nomObjectif").html("");
+                }
 
             //affichage nvAlarme initial
             $("#nvAlarme").html($Alarme);
@@ -393,6 +460,9 @@ $(document).ready(function() {  /* chargement du DOM */
             // tirage au sort direction Mob
             $random=Math.floor(Math.random()*($directions.length));
             $("#directionMob").html($directions[$random]);
+            if($("#explorerMobs").html() === "aucun"){
+                $("#directionMob").html("");
+            }
 
 
         // tirage au sort Caisse
@@ -544,6 +614,63 @@ $(document).ready(function() {  /* chargement du DOM */
             $("#popupActivation").removeClass('visible');
             $("#zoneListeActions").toggleClass("invisible");
             //vidage tuile
+            
+        })
+    })
+
+    // Activation BOSS
+    /***********************************/
+    $("#boutonBoss").on("click", function(){
+        $("#defenseDesBoss").val("4").change();
+        // affichage du popupActivation
+        $("#popupBoss").addClass('visible');
+        // injection BdD actions
+        $listeActionsBoss=[];
+        $actionsBoss=$actionsVador;
+        for($i=0; $i<$actionsBoss.length; $i++){
+            $listeActionsBoss[$listeActionsBoss.length]=$actionsBoss[$i];
+        }
+
+        console.log($listeActionsBoss);
+
+        // tirage au sort actions
+        $("#listeActionsBoss").html("");
+        $random=Math.floor(Math.random()*($listeActionsBoss.length));
+        $("#listeActionsBoss").append("<li>"+$listeActionsBoss[$random]+"</li>");
+
+        // bouton Refresh
+        $("#boutonRefreshActionBoss").on("click", function(){
+            $("#listeActionsBoss").html("");
+            $random=Math.floor(Math.random()*($listeActionsBoss.length));
+            $("#listeActionsBoss").append("<li>"+$listeActionsBoss[$random]+"</li>");
+        })
+
+
+        // boutonLancerDes
+        $("#boutonLancerDesBoss").on("click", function(){
+            // récup valeurs
+            $nbDes=$("#nbDesBoss").val();
+            $defenseDes=$("#defenseDesBoss").val();
+            $nbReussites=0;
+            //console.log($nbDes, $defenseDes);
+            $("#zoneAffichageDesBoss").html("");
+            for($i=0; $i<$nbDes; $i++){
+                $de=Math.floor(Math.random()*(6)+1);
+                console.log($de);
+                if($de<$defenseDes){
+                    $("#zoneAffichageDesBoss").append('<p class="de deBlanc">'+$de+'</p>');
+                }else{
+                    $("#zoneAffichageDesBoss").append('<p class="de deRouge">'+$de+'</p>');
+                    $nbReussites++;
+                }
+            }
+            $("#nbReussitesBoss").html("⇒ "+$nbReussites);
+        })
+
+        // boutonFermerActivation
+        $("#boutonFermerBoss").on("click", function(){
+            // masquage du popup
+            $("#popupBoss").removeClass('visible');
             
         })
     })

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>ImpACT_v0.5</title>
+		<title>ImpACT_v0.6</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="shortcut icon" type="image/png" href="assets/imgs/stormhead.png"/>
 		<script src="assets/js/jquery-3.7.1.js"></script>
@@ -18,7 +18,11 @@
 				<button id="boutonTuileRandom" class="boutonBleu boutonLarge">Explorer</button>
 				<button id="boutonHistorique" class="marginT boutonGris boutonLarge boutonFin">Historique</button>
 			</div>
-			<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
+			<div class="colonne">
+				<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
+				<button id="boutonBoss" class="marginT marginL boutonRougeSombre boutonLarge centre invisible"><img id="iconeImpact" src="assets/imgs/vader.png"/>BOSS</button>
+			</div>
+			
 			<div class="colonne">
 				<button id="boutonFinTour" class="marginL boutonVert boutonLarge">Fin de Tour</button>
 				<div class="ligne centre texteBlanc">
@@ -71,6 +75,7 @@
 						<option value="liberer">Sauvetage</option>
 						<option value="sabotage">Sabotage</option>
 						<option value="piratage">Piratage</option>
+						<option value="diversion">Diversion</option>
 					</select>
 				</div>
 				<div class="ligne centre">
@@ -200,6 +205,73 @@
 					</div>
 				</div>
 				<button id="boutonFermerActivation" class="boutonRouge boutonLarge marginT">Fermer</button>
+            </div>
+
+			<!--popupBoss-->
+			<div id="popupBoss" class="popup colonne centreH">
+                <h2>Activation du Boss :</h2>
+				<div class="borderTB colonne centre">
+					<img id="imageBoss" src="assets/imgs/mobs/Dark_Vador.png" class="imageMob">
+					<p id="nomBoss"></p>
+				</div>
+				
+				<div id="zoneListeActionsBoss" class="colonne centre">
+					<div class="ligne centre">
+						<div class="colonne">
+							<h3>Action : </h3>
+							<ul id="listeActionsBoss">
+								<!--injection js-->
+							</ul>
+						</div>
+						<button id="boutonRefreshActionBoss" class="boutonBleu boutonCarre marginL">↻</button>
+					</div>
+					
+					<div id="affichageCombatBoss" class="colonne borderTB centre">
+						<h3 class="marginB0">Attaque :</h3>
+						<div class="ligne centreV">
+							<div class="colonne carreBlanc">
+								<p>Dés : </p>
+								<select id="nbDesBoss" class="selectDe">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+							<div class="colonne carreBlanc">
+								<p>Déf : </p>
+								<select id="defenseDesBoss" class="selectDe">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+								</select>
+							</div>
+							
+							<button id="boutonLancerDesBoss" class="marginL boutonCarre boutonBleu">Lancer !</button>
+							<p id="nbReussitesBoss"></p>
+						</div>
+						<div id="zoneAffichageDesBoss" class="ligne"></div>
+					</div>
+				</div>
+				<button id="boutonFermerBoss" class="boutonRouge boutonLarge marginT">Fermer</button>
             </div>
 
 			<!-- popupEvenement-->
