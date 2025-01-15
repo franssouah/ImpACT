@@ -83,21 +83,38 @@ $(document).ready(function() {  /* chargement du DOM */
     //BdD évènements
     $evenementsStorm=[
         // 0 "texte", 1 "Mob", 2 "Dés", 3 "nb"
-        ["<strong>Comité d'accueil !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Garde_Royal","3","x2"],
-        ["<strong>Vous ne sortirez pas d'ici !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Trooper_Lourd","3","x2"],
-        ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Stormtrooper","1","x4"],
-        ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>","Droide_Sonde","3","x2"],
-        ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.","aucun","0",""],
-        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>","aucun","0",""],
-        ["<strong>C'est un piège !</strong> <br> Si un Héros se trouve à l'entrée de cette Tuile, déplacez-le d'une case vers l'intérieur. Puis placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées ont une résistance de 5 dés.</strong>","Stormtrooper","1","x4"]
+        ["<strong>Comité d'accueil !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>",
+            "Garde_Royal","3","x2"],
+        ["<strong>Vous ne sortirez pas d'ici !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>",
+            "Trooper_Lourd","3","x2"],
+        ["<strong>Petit imprévu !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>",
+            "Stormtrooper","1","x4"],
+        ["<strong>Blip blip bliiip !</strong> <br> Placez ces Ennemis sur la Tuile indiquée. <br> <strong>Ils ne s'activeront que quand les Héros seront en vue.</strong>",
+            "Droide_Sonde","3","x2"],
+        ["<strong>Aleeeerte !</strong> <br> Placez un jeton ▲ jaune sur la Tuile indiquée. <br> <strong>TOUS LES ENNEMIS effectuent IMMEDIATEMENT un mouvement (max 12) vers ce jeton.</strong><br>Supprimez ensuite le jeton.",
+            "aucun","0",""],
+        ["<strong>Verrouillage des portes !</strong> <br> Placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées sont considérées comme des Ennemis avec 5 dés, qui ne peuvent ni se déplacer ni attaquer.</strong>",
+            "aucun","0",""],
+        ["<strong>C'est un piège !</strong> <br> Si un Héros se trouve à l'entrée de cette Tuile, déplacez-le d'une case vers l'intérieur. Puis placez une Porte Blindée à chaque entrée de cette Tuile. <br> <strong>Les Portes Blindées ont une résistance de 5 dés.</strong>",
+            "Stormtrooper","1","x4"]
     ]
     $EvenementsStormBoss=[
         // 0 "texte", 1 "Mob", 2 "Dés", 3 "nb"
-        ["<strong>Fuyez, pauvres fous !</strong> <br> Faites entrer le Boss par la Porte la plus proche des Héros.<br><br><strong>Il s'activera à chaque Tour, juste après les autres Ennemis, avec le bouton BOSS.</strong>","Dark_Vador","20",""],
+        ["<strong>Fuyez, pauvres fous !</strong> <br> Faites entrer le Boss par la Porte la plus proche des Héros.<br><br><strong>Il s'activera à chaque Tour, juste après les autres Ennemis, avec le bouton BOSS.</strong>",
+            "Dark_Vador","20",""],
     ]
 
     //BdD directions
     $directions=["←","→","↑","↓"];
+
+    //BdD caisse
+    $itemsCaisse=[
+        ["medikit","Médikit"],["medikit","Médikit"],
+        ["grenade", "Grenade"],
+        ["comlink", "Comlink"],
+        ["bouclier", "Bouclier énergétique"],
+        ["booster", "Booster d'énergie"]
+    ]
 
     /* 2- variables globales + fonctions
     *******************************************/
@@ -495,7 +512,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#listeHistorique").append("<li>"+$tuileRandom+"</li>");
 
         // vérif possibilité ajout tuile objectif
-        if($tuilesTirees.length === 5){
+        if($tuilesTirees.length === 5 && $tuileObjectif !=""){
             $tuilesMission[$tuilesMission.length]=$tuileObjectif;
         }
 
@@ -557,9 +574,13 @@ $(document).ready(function() {  /* chargement du DOM */
                 }
             }
             if($objectifTrouve){
-                for($i=0; $i<$actionsVsBleu.length; $i++){
+                // condition pour enlever ces actions dans un défi boss
+                if ($objectif != "boss"){
+                    for($i=0; $i<$actionsVsBleu.length; $i++){
                     $listeActions[$listeActions.length]=$actionsVsObjectif[$i];
+                    }
                 }
+                
             }
             if($alerteJaune){
                 for($i=0; $i<$actionsVsBruit.length; $i++){
@@ -799,6 +820,22 @@ $(document).ready(function() {  /* chargement du DOM */
         // fermeture
         $("#boutonFermerHistorique").on("click", function(){
             $("#popupHistorique").removeClass("visible");
+        })
+    })
+
+    /* 9- boutonCaisse
+    ********************************************/
+    $("#boutonCaisse").on("click", function(){
+        $("#popupCaisse").addClass("visible");
+        // random
+        $random=Math.floor(Math.random()*($itemsCaisse.length));
+        $itemRandom=$itemsCaisse[$random];
+        // affichage dans le html
+        $("#nomItem").html($itemRandom[1]);
+        $("#imageItem").attr("src", "assets/imgs/items/"+$itemRandom[0]+".png");
+        // fermeture
+        $("#boutonFermerCaisse").on("click", function(){
+            $("#popupCaisse").removeClass("visible");
         })
     })
 

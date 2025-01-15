@@ -17,6 +17,7 @@
             <div class="colonne">
 				<button id="boutonTuileRandom" class="boutonBleu boutonLarge">Explorer</button>
 				<button id="boutonHistorique" class="marginT boutonGris boutonLarge boutonFin">Historique</button>
+				<button id="boutonCaisse" class="marginT boutonBleu boutonLarge centre"><img id="iconeImpact" src="assets/imgs/items/box.png"/></button>
 			</div>
 			<div class="colonne">
 				<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
@@ -60,7 +61,7 @@
         <!-- zone affichage popups-->
         <section class="ligne centre">
 			<!--popupChoixMission-->
-			<div id="popupChoixMission" class="popup colonne centre">
+			<div id="popupChoixMission" class="popup colonne centre popupGris">
 				<h2>Choix de la mission :</h2>
 				<div class="ligne">
 					<p class="margin1">Lieu : </p>
@@ -88,7 +89,7 @@
 			</div>
 
 			<!--popupBriefing-->
-			<div id="popupBriefing" class="popup colonne centre">
+			<div id="popupBriefing" class="popup colonne centre popupBlanc">
 				<h3>Mise en place de la Mission :</h3>
 				<p>Placez vos Héros et le jeton Départ sur cette Tuile :</p>
 				<img id="imageTuileDepart" src="" class="imageTuile">
@@ -127,14 +128,14 @@
             </div>
 
 			<!-- popupHistorique -->
-			<div id="popupHistorique" class="popup colonne centreH">
+			<div id="popupHistorique" class="popup colonne centreH popupGris">
 				<h3>Historique des Tuiles tirées : </h3>
 				<ol id="listeHistorique" class=""></ol>
 				<button id="boutonFermerHistorique" class="boutonVert boutonLarge">Fermer</button>
 			</div>
 
 			<!--popupActivation-->
-			<div id="popupActivation" class="popup colonne centreH">
+			<div id="popupActivation" class="popup colonne centreH popupGris">
                 <h2>Activation des Ennemis :</h2>
 				<div class="borderTB colonne centre">
 					<div class="ligne centre">
@@ -208,7 +209,7 @@
             </div>
 
 			<!--popupBoss-->
-			<div id="popupBoss" class="popup colonne centreH">
+			<div id="popupBoss" class="popup colonne centreH popupGris">
                 <h2>Activation du Boss :</h2>
 				<div class="borderTB colonne centre">
 					<img id="imageBoss" src="assets/imgs/mobs/Dark_Vador.png" class="imageMob">
@@ -229,7 +230,7 @@
 					<div id="affichageCombatBoss" class="colonne borderTB centre">
 						<h3 class="marginB0">Attaque :</h3>
 						<div class="ligne centreV">
-							<div class="colonne carreBlanc">
+							<div class="colonne carreBlanc centreH">
 								<p>Dés : </p>
 								<select id="nbDesBoss" class="selectDe">
 									<option value="1">1</option>
@@ -275,7 +276,7 @@
             </div>
 
 			<!-- popupEvenement-->
-			<div id="popupEvenement" class="popup colonne centreH">
+			<div id="popupEvenement" class="popup colonne centreH popupGris">
 				<h2>Evènement imprévu !</h2>
 				<div class="colonne centre">
 					<p id="texteEvenement"></p>
@@ -291,8 +292,19 @@
 				<button id="boutonFermerEvenement" class="boutonRouge margin1 boutonLarge boutonBasPage">Fermer</button>
 			</div>
 
+			<!-- popupCaisse-->
+			<div id="popupCaisse" class="popup colonne centreH popupGris">
+				<h2>Ouverture d'une Caisse :</h2>
+				<div class="colonne centre">
+					<p>Prenez la carte suivante :</p>
+					<h3 id="nomItem"></h3>
+					<img id="imageItem" src="" class="imageTuile"/>
+				</div>
+				<button id="boutonFermerCaisse" class="boutonVert margin1 boutonLarge boutonBasPage">OK</button>
+			</div>
+
 			<!-- popupFinTour-->
-			<div id="popupFinTour" class="popup colonne centreH">
+			<div id="popupFinTour" class="popup colonne centreH popupGris">
 				<h2>Fin du Tour :</h2>
 				<div class="ligne centre">
 					<p>Ennemis en alerte : </p>
@@ -323,9 +335,5 @@
 				</div>
 			</div>
         </section>
-
-
-
-
 	</body>
 </html>
