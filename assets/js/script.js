@@ -18,8 +18,12 @@ $(document).ready(function() {  /* chargement du DOM */
         "o01a","o02a","o03a","o04a","o05a","o06a","o07a",
         "j02a","j07a","j10a","j13a"
     ];
+    $tuilesJungle=[
+        "c01a","c02a","c03a","c04a","c05a","c06a","c07a","c08a","c09a","c10a","c11a","c12a","c13a","c16a",
+        "j01a","j03a","j04a","j05a","j06a","j08a","j09a","j11a","j12a","j14a"
+    ]
 
-    // BdD Mobs
+    // BdD Mobs Empire
     $mobsStormR1=[
         //"nom", "nb dés"
         ["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],
@@ -311,6 +315,13 @@ $(document).ready(function() {  /* chargement du DOM */
                 $evenements=$evenementsStorm;
                 $evenementsBoss=$EvenementsStormBoss;
             }
+            if($themeMission === "jungle"){
+                $tuilesMission=$tuilesJungle;
+                $mobsMission=$mobsStormR1;
+                $mobsBoss=$mobsStormBoss;
+                $evenements=$evenementsStorm;
+                $evenementsBoss=$EvenementsStormBoss;
+            }
 
             // objectif
             $objectifMission=$("#selectObjectif").val();
@@ -322,17 +333,34 @@ $(document).ready(function() {  /* chargement du DOM */
 
             if($objectifMission === "fuir"){
             // MISSION FUITE
-                $tuileDepart="c23a";
-                $tuileObjectif="c19a";
+                //lieu
+                if($themeMission === "imp"){
+                    $tuileDepart="c23a";
+                    $tuileObjectif="c19a";
+                }
+                if($themeMission === "jungle"){
+                    $tuileDepart="c10a";
+                    $tuileObjectif="c02a";
+                }
                 $texteObjectif='Atteignez cette Tuile pour vous enfuir de la base : ';
                 $messageObjectifTrouve="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                 // évènement :
                     $imageEvenementMap=$tuileObjectif;
+
+
             }else if($objectifMission === "liberer"){
             // MISSION SAUVETAGE
-                $tuileDepart="c22a";
-                $tuileObjectif="c33a";
+                //lieu
+                if($themeMission === "imp"){
+                    $tuileDepart="c22a";
+                    $tuileObjectif="c33a";
+                }
+                if($themeMission === "jungle"){
+                    $tuileDepart="j11a";
+                    $tuileObjectif="c04a";
+                }
+                
                 $texteObjectif="Retrouvez le prisonnier sur cette Tuile, puis escortez-le jusqu'à la Tuile de départ :";
                 $messageObjectifTrouve="Vous avez trouvé le prisonnier ! Escortez-le jusqu'à la Tuile de départ pour gagner la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
@@ -342,26 +370,45 @@ $(document).ready(function() {  /* chargement du DOM */
                 $messageObjectifTrouve2="Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 // évènement :
                     $imageEvenementMap=$tuileObjectif2;
+
+
             }else if($objectifMission === "sabotage"){
             // MISSION SABOTAGE
-                $tuileDepart="c19a";
-                $tuileObjectif="o02a";
+                //lieu
+                if($themeMission === "imp"){
+                    $tuileDepart="c19a";
+                    $tuileObjectif="o02a";
+                }
+                if($themeMission === "jungle"){
+                    $tuileDepart="c03a";
+                    $tuileObjectif="j05a";
+                }
                 $texteObjectif="Libérez votre vaisseau en désactivant le champ de force depuis cette Tuile :";
-                $messageObjectifTrouve="Vous avez désactivé le champ de force ! Revenez vite au hangar pour fuir à bord de votre vaisseau et réussir la mission.";
+                $messageObjectifTrouve="Vous avez désactivé le champ de force ! Rejoignez vite votre vaisseau pour fuir et réussir la mission.";
                 fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                 // ajout conditions objectif 2:
                 $tuileObjectif2=$tuileDepart;
-                $texteObjectif2="Revenez vite au hangar pour fuir à bord de votre vaisseau :";
+                $texteObjectif2="Revenez vite à bord de votre vaisseau :";
                 $messageObjectifTrouve2="Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                 // modif Alarme initiale
                 $Alarme=3;
                 // évènement :
                     $imageEvenementMap=$tuileObjectif2;
+
+
             }else if($objectifMission === "piratage"){
                 // MISSION PIRATAGE
-                    $tuileDepart="c27a";
-                    $tuileObjectif="c20a";
-                    $texteObjectif="Vous devez trouver cette Tuile afin que votre droïde pirate le système informatique de la base. Vous obtiendrez alors les coordonnées de la Tuile de sortie, afin de vous enfuir.";
+                    //lieu
+                    if($themeMission === "imp"){
+                        $tuileDepart="c27a";
+                        $tuileObjectif="c20a";
+                    }
+                    if($themeMission === "jungle"){
+                        $tuileDepart="c01a";
+                        $tuileObjectif="c04a";
+                    }
+                    
+                    $texteObjectif="Vous devez trouver cette Tuile afin que votre droïde pirate le système informatique ennemi. Vous obtiendrez alors les coordonnées de la Tuile de sortie, afin de vous enfuir.";
                     $messageObjectifTrouve="Votre droïde a piraté le système informatique de la base !";
                     fonctionChoixMission($tuileDepart, $tuileObjectif, $texteObjectif, $messageObjectifTrouve);
                     // ajout conditions objectif 2:
@@ -371,10 +418,20 @@ $(document).ready(function() {  /* chargement du DOM */
                     $messageObjectifTrouve2="Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.";
                     // évènement :
                         $imageEvenementMap=$tuileObjectif2;
+
+
             }else if($objectifMission === "diversion"){
                 // MISSION DIVERSION
-                    $tuileDepart="c25a";
-                    $tuileObjectif="";
+                    //lieu
+                    if($themeMission === "imp"){
+                        $tuileDepart="c25a";
+                        $tuileObjectif="";
+                    }
+                    if($themeMission === "jungle"){
+                        $tuileDepart="c02a";
+                        $tuileObjectif="";
+                    }
+                    
                     $objectif="vador";
                     $texteObjectif="Vous devez faire un maximum de bruit pour attirer l'attention de Dark Vador.<br> Dès que vous l'aurez attiré, fuyez !";
                     $messageObjectifTrouve="C'est bon, vous avez attiré Dark Vador. Maintenant, fuyez vite !";
@@ -488,7 +545,7 @@ $(document).ready(function() {  /* chargement du DOM */
         $("#imageCaisse").attr("src", "");
         if ($random2 === 0){
             $caisse=true;
-            $("#imageCaisse").attr("src", "assets/imgs/caisse.png");
+            $("#imageCaisse").attr("src", "assets/imgs/items/box.png");
         }
 
         // affichage dans le html
