@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>ImpACT_v0.7</title>
+		<title>ImpACT_v0.8</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="shortcut icon" type="image/png" href="assets/imgs/stormhead.png"/>
 		<script src="assets/js/jquery-3.7.1.js"></script>
@@ -17,11 +17,11 @@
             <div class="colonne">
 				<button id="boutonTuileRandom" class="boutonBleu boutonLarge">Explorer</button>
 				<button id="boutonHistorique" class="marginT boutonGris boutonLarge boutonFin">Historique</button>
-				<button id="boutonCaisse" class="marginT boutonBleu boutonLarge centre"><img id="iconeImpact" src="assets/imgs/items/box.png"/></button>
+				<button id="boutonCaisse" class="marginT boutonBleu boutonLarge centre ligne"><img class="iconeImpact" src="assets/imgs/items/box.png"/><p id="nbBox"></p></button>
 			</div>
 			<div class="colonne">
-				<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img id="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
-				<button id="boutonBoss" class="marginT marginL boutonRougeSombre boutonLarge centre invisible"><img id="iconeImpact" src="assets/imgs/vader.png"/>BOSS</button>
+				<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img class="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
+				<button id="boutonBoss" class="marginT marginL boutonRougeSombre boutonLarge centre invisible"><img class="iconeImpact" src="assets/imgs/vader.png"/>BOSS</button>
 			</div>
 			
 			<div class="colonne">
@@ -62,25 +62,22 @@
         <section class="ligne centre">
 			<!--popupChoixMission-->
 			<div id="popupChoixMission" class="popup colonne centre popupGris">
-				<h2>Choix de la mission :</h2>
+				<h2 class="marginB2">Choix de la mission :</h2>
 				<div class="ligne">
-					<p class="margin1">Lieu : </p>
+					<!--<p class="margin1">Lieu : </p>-->
 					<select id="selectTheme">
+						<option value="" disabled selected>Lieu</option>
 						<option value="imp">Base impériale</option>
 						<option value="jungle">Jungle</option>
 					</select>
 				</div>
 				<div class="ligne">
-					<p class="margin1">Objectif : </p>
+					<!--<p class="margin1">Objectif : </p>-->
 					<select id="selectObjectif">
-						<option value="fuir">Fuite</option>
-						<option value="liberer">Sauvetage</option>
-						<option value="sabotage">Sabotage</option>
-						<option value="piratage">Piratage</option>
-						<option value="diversion">Diversion</option>
+						<option value="" disabled selected>Objectif</option>
 					</select>
 				</div>
-				<div class="ligne centre">
+				<div class="ligne centre borderTB margin1">
 					<p class="margin1">Joueurs : </p>
 					<input type="checkbox" id="joueurVert" name="jVert" value="jVert" class="switch switchVert"/>
 					<input type="checkbox" id="joueurBleu" name="jBleu" value="jBleu" class="switch switchBleu"/>

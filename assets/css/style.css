@@ -67,6 +67,11 @@ h3{
     margin: .2rem;
     padding: .2rem;
 }
+.borderB{
+    border-bottom: 1px solid var(--blanc);
+    margin: .2rem;
+    padding: .2rem;
+}
 .borderTBnoir{
     border-top: 1px solid var(--dark);
     border-bottom: 1px solid var(--dark);
@@ -80,6 +85,9 @@ h3{
 }
 .margin1{
     margin: 1rem;
+}
+.marginB2{
+    margin-bottom: 2rem;
 }
 .marginB0{
     margin-bottom: 0;
@@ -97,6 +105,12 @@ h3{
 }
 .textePetit{
     font-size: 1rem;
+}
+
+/* select */
+select{
+    height: 2rem;
+    margin: 1rem;
 }
 
 /* Zones
@@ -220,7 +234,7 @@ h3{
     transform: translateX(-4rem);
 }
 
-#iconeImpact{
+.iconeImpact{
     height: .8rem;
     margin-right: .5rem;
     transform: scale(150%);
