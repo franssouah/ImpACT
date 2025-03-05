@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>ImpACT_v0.8</title>
+		<title>ImpACT_v0.9</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="shortcut icon" type="image/png" href="assets/imgs/stormhead.png"/>
 		<script src="assets/js/jquery-3.7.1.js"></script>
@@ -61,7 +61,9 @@
         <!-- zone affichage popups-->
         <section class="ligne centre">
 			<!--popupChoixMission-->
-			<div id="popupChoixMission" class="popup colonne centre popupGris">
+			<div id="popupChoixMission" class="popup colonne centreH popupGris">
+				<h1>ImpACT</h1>
+				<p class="coinSupDroit">v0.9</p>
 				<h2 class="marginB2">Choix de la mission :</h2>
 				<div class="ligne">
 					<!--<p class="margin1">Lieu : </p>-->
@@ -77,27 +79,43 @@
 						<option value="" disabled selected>Objectif</option>
 					</select>
 				</div>
+				<div class="ligne">
+					<!--<p class="margin1">Objectif : </p>-->
+					<select id="selectMobs">
+						<option value="" disabled selected>Ennemis</option>
+						<option value="imp">Impériaux</option>
+					</select>
+				</div>
+				<div class="ligne">
+					<!--<p class="margin1">Objectif : </p>-->
+					<select id="selectBoss">
+						<option value="" disabled selected>Boss</option>
+						<option value="imp">Vador</option>
+					</select>
+				</div>
+
 				<div class="ligne centre borderTB margin1">
 					<p class="margin1">Joueurs : </p>
 					<input type="checkbox" id="joueurVert" name="jVert" value="jVert" class="switch switchVert"/>
 					<input type="checkbox" id="joueurBleu" name="jBleu" value="jBleu" class="switch switchBleu"/>
 					<input type="checkbox" id="joueurRouge" name="jRouge" value="jRouge" class="switch switchRouge"/>
 				</div>
-				<button id="boutonValiderMission" class="margin1 boutonVert boutonLarge">Go !</button>
+				
+				<button id="boutonValiderMission" class="margin1 boutonVert boutonLarge boutonBasPage">Go !</button>
 			</div>
 
 			<!--popupBriefing-->
-			<div id="popupBriefing" class="popup colonne centre popupBlanc">
-				<h3>Mise en place de la Mission :</h3>
+			<div id="popupBriefing" class="popup colonne centreH">
+				<h2>Mise en place de la Mission :</h2>
 				<p>Placez vos Héros et le jeton Départ sur cette Tuile :</p>
 				<img id="imageTuileDepart" src="" class="imageTuile">
 				<p id="tuileDepart"></p>
 				<p>Pour démarrer la mission, cliquez sur OK.</p>
-				<button id="boutonValiderBriefing" class="boutonVert boutonLarge">OK</button>
+				<button id="boutonValiderBriefing" class="boutonVert boutonLarge boutonBasPage">OK</button>
 			</div>
 
             <!--popupTuileRandom-->
-            <div id="popupTuileRandom" class="popup colonne centre">
+            <div id="popupTuileRandom" class="popup colonne centreH">
                 <h2>Placez la tuile suivante derrière la porte ouverte :</h2>
 				<img id="imageTuile" src="" class="imageTuile">
 				<div class="ligne centre">
@@ -122,14 +140,14 @@
 					
 					
 				</div>
-                <button id="boutonValider" class="boutonVert boutonLarge">OK</button>
+                <button id="boutonValider" class="boutonVert boutonLarge boutonBasPage">OK</button>
             </div>
 
 			<!-- popupHistorique -->
 			<div id="popupHistorique" class="popup colonne centreH popupGris">
 				<h3>Historique des Tuiles tirées : </h3>
 				<ol id="listeHistorique" class=""></ol>
-				<button id="boutonFermerHistorique" class="boutonVert boutonLarge">Fermer</button>
+				<button id="boutonFermerHistorique" class="boutonVert boutonLarge boutonBasPage">Fermer</button>
 			</div>
 
 			<!--popupActivation-->
@@ -205,7 +223,7 @@
 						<div id="zoneAffichageDes" class="ligne"></div>
 					</div>
 				</div>
-				<button id="boutonFermerActivation" class="boutonRouge boutonLarge marginT">Fermer</button>
+				<button id="boutonFermerActivation" class="boutonRouge boutonLarge boutonBasPage">Fermer</button>
             </div>
 
 			<!--popupBoss-->
@@ -274,7 +292,7 @@
 						<div id="zoneAffichageDesBoss" class="ligne"></div>
 					</div>
 				</div>
-				<button id="boutonFermerBoss" class="boutonRouge boutonLarge marginT">Fermer</button>
+				<button id="boutonFermerBoss" class="boutonRouge boutonLarge boutonBasPage">Fermer</button>
             </div>
 
 			<!-- popupEvenement-->
@@ -334,7 +352,10 @@
 					<p id="messageRenforts" class="textePetit"></p>
 
 					<!--activation renforts-->
-					<button id="boutonImpActRenforts" class="boutonImpAct marginL boutonRouge boutonLarge centre invisible"><img class="iconeImpact" src="assets/imgs/stormhead.png"/>Activation</button>
+					<button id="boutonImpActRenforts" class="boutonImpAct marginL boutonRouge boutonCarre colonne centre invisible">
+						<img class="iconeImpact" src="assets/imgs/stormhead.png"/>
+						Activation
+					</button>
 					
 					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge boutonBasPage">Fermer</button>
 				</div>

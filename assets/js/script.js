@@ -116,7 +116,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Ravitaillement", 
             "Récupérez 5 caisses de ravitaillement impériales.", 
             "Vous avez récupéré suffisamment de caisses de ravitaillement. Sortez vite d'ici !",
-            ["c01b+2c18b+c38a","","c03a","","caisses"],
+            ["c01b+2c18b+c38a","","c03a","",
+                "caisses"],
             ["$tuileDepart", 
                 "Bravo, vous avez trouvé le ravitaillement. <br>Dirigez-vous vite vers la sortie :", 
                 "Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -124,7 +125,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Fuite !", 
             "Atteignez cette Tuile pour vous enfuir de la base : ", 
             "Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission.",
-            ["c23a","c19a","c10a","c02a",""],
+            ["c23a","c19a","c10a","c02a",
+                ""],
             ["", 
                 "", 
                 "Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -132,7 +134,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Libérer le prisonnier", 
             "Retrouvez le prisonnier sur cette Tuile, puis escortez-le jusqu'à la Tuile de départ :", 
             "Vous avez trouvé le prisonnier ! Escortez-le jusqu'à la Tuile de départ pour gagner la mission.",
-            ["c22a","c33a","j11a","c04a",""],
+            ["c22a","c33a","j11a","c04a",
+                ""],
             ["$tuileDepart", 
                 "Escortez le prisonnier jusqu'à la Tuile de départ :", 
                 "Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -140,7 +143,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Désactiver le champ de force", 
             "Libérez votre vaisseau en désactivant le champ de force depuis cette Tuile :", 
             "Vous avez désactivé le champ de force ! Rejoignez vite votre vaisseau pour fuir et réussir la mission.",
-            ["c19a","o02a","c03a","j05a",""],
+            ["c19a","o02a","c03a","j05a",
+                ""],
             ["$tuileDepart", 
                 "Revenez vite à bord de votre vaisseau :", 
                 "Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -148,7 +152,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Piratage informatique", 
             "Vous devez trouver cette Tuile afin que votre droïde pirate le système informatique ennemi. Vous obtiendrez alors les coordonnées de la Tuile de sortie, afin de vous enfuir.", 
             "Votre droïde a piraté le système informatique de la base !",
-            ["c27a","c20a","c01a","c04a",""],
+            ["c27a","c20a","c01a","c04a",
+                ""],
             ["random", 
             "Fuyez jusqu'à cette Tuile pour réussir la mission :", 
             "Vous avez trouvé la sortie ! Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -156,7 +161,8 @@ $(document).ready(function() {  /* chargement du DOM */
         ["Diversion dangereuse", 
             "Vous devez faire un maximum de bruit pour attirer l'attention de Dark Vador.<br> Dès que vous l'aurez attiré, fuyez !", 
             "C'est bon, vous avez attiré Dark Vador. Maintenant, fuyez vite !",
-            ["c25a","","c02a","","vador"],
+            ["c25a","","c02a","",
+                "vador"],
             ["$tuileDepart", 
             "Fuyez vite vers la sortie !", 
             "Tous les Héros doivent atteindre cette tuile pour terminer la mission."]
@@ -238,6 +244,144 @@ $(document).ready(function() {  /* chargement du DOM */
     }
 
     // bouton Explorer
+
+    function fonctionExplorer(){
+        // tirage au sort Tuile
+        $random=Math.floor(Math.random()*($tuilesMission.length));
+        $tuileRandom=$tuilesMission[$random];
+            // vérification de l'objectif
+            if($tuileRandom === $tuileObjectif){
+                $objectifTrouve=true;
+                console.log("Objectif trouvé !"+$objectifTrouve);
+                $("#messageObjectifTrouve").html($messageObjectifTrouve);
+
+                // modif affichage global
+                $("#texteObjectif").html($messageObjectifTrouve);
+                $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif+".png");
+                $("#nomObjectif").html();
+
+                // augmentation Alarme
+                if ($Alarme <4){
+                    $Alarme=4;
+                    fonctionAjoutMobsRangs();
+                    $("#nvAlarme").html($Alarme);
+                    fonctionEvenement();
+                }
+
+                if($tuileObjectif2!=""){
+                    if($tuileObjectif2="random"){
+                        $random=Math.floor(Math.random()*($tuilesMission.length));
+                        $tuileObjectif2=$tuilesMission[$random];
+                    }
+                    $("#texteObjectif").html($texteObjectif2);
+                    $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
+                    $("#nomObjectif").html($tuileObjectif2);
+                }
+            }
+            // vérif existence objectif 2
+            if($objectifTrouve && ($tuileRandom === $tuileObjectif2)){
+                $("#messageObjectifTrouve").html($messageObjectifTrouve2);
+            }
+
+        // tirage au sort Mob
+        fonctionTirageMob("#imageMob", "#explorerMobs", "#nbMobs");
+            // tirage au sort direction Mob
+            $random=Math.floor(Math.random()*($directions.length));
+            $("#directionMob").html($directions[$random]);
+            if($("#explorerMobs").html() === "aucun"){
+                $("#directionMob").html("");
+            }
+
+
+        // tirage au sort Caisse
+        $random2=Math.floor(Math.random()*(3));
+        $caisse=false;
+        $("#imageCaisse").attr("src", "");
+        if ($random2 === 0){
+            $caisse=true;
+            $("#imageCaisse").attr("src", "assets/imgs/items/box.png");
+            $nbBox++;
+            console.log($nbBox);
+
+            // vérif objectif caisses
+                // affichage nb dans le html
+                if($objectif === "caisses"){
+                    $("#nbBox").html($nbBox);
+                }
+            if($objectif === "caisses" && $nbBox === 5){
+                $objectifTrouve=true;
+                $("#messageObjectifTrouve").html($messageObjectifTrouve);
+
+                // augmentation Alarme
+                if ($Alarme <4){
+                    $Alarme=4;
+                    fonctionAjoutMobsRangs();
+                    $("#nvAlarme").html($Alarme);
+                    // événement
+                    $imageEvenementMap=$tuileDepart;
+                    fonctionEvenement();
+                }
+
+                // affichage Obj2
+                if($tuileObjectif2 === "random"){
+                    $random=Math.floor(Math.random()*($tuilesMission.length));
+                    $tuileObjectif2=$tuilesMission[$random];
+                }
+                $("#texteObjectif").html($texteObjectif2);
+                    $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
+                    $("#nomObjectif").html($tuileObjectif2);
+            }
+        }
+
+        // affichage dans le html
+        $("#explorer").html($tuileRandom);
+        $("#imageTuile").attr("src", "assets/imgs/maps/"+$tuileRandom+".png");
+
+        // affichage du popupTuileRandom
+        $("#popupTuileRandom").addClass('visible');
+
+        // suppression de la tuile dans la liste $tuilesMission
+        $tuilesMission=jQuery.grep($tuilesMission, function(value){
+            return value !=$tuileRandom;
+        });
+        console.log($tuilesMission);
+
+        // ajout dans la liste tuilesTirees
+        $tuilesTirees[$tuilesTirees.length]=$tuileRandom;
+        console.log($tuilesTirees);
+
+        // ajout dans l'historique
+        $("#listeHistorique").append("<li>"+$tuileRandom+"</li>");
+
+        // vérif possibilité ajout tuile objectif
+        if($tuilesTirees.length === 5 && $tuileObjectif !=""){
+            $tuilesMission[$tuilesMission.length]=$tuileObjectif;
+        }
+    }
+
+    function fonctionOuvertureChaine(){
+        // Possibilité d'ouverture en chaine
+        $randomOuvertureChaine=Math.floor(Math.random()*(2));
+        console.log("ouv "+$randomOuvertureChaine);
+        if($randomOuvertureChaine === 0){
+            $random4=Math.floor(Math.random()*($directions.length));
+            $("#boutonValider").html("ATTENTION : ouverture d'une autre porte <strong>"+$directions[$random4]+"</strong>");
+            $("#boutonValider").removeClass("boutonLarge");
+            $("#boutonValider").removeClass("boutonVert");
+            $("#boutonValider").addClass("boutonRouge");
+            $("#boutonValider").addClass("boutonXXLarge");
+        }else{
+            // RAZ bouton valider
+            $("#boutonValider").html("OK");
+            $("#boutonValider").addClass("boutonLarge");
+            $("#boutonValider").addClass("boutonVert");
+            $("#boutonValider").removeClass("boutonRouge");
+            $("#boutonValider").removeClass("boutonXXLarge");
+        }
+    }
+
+
+
     function fonctionTirageMob(image, nomMob, nbMobs){
         // tirage au sort Mob
         $random=Math.floor(Math.random()*($mobsMission.length));
@@ -486,131 +630,21 @@ $(document).ready(function() {  /* chargement du DOM */
 
     // boutonTuileRandom
     $("#boutonTuileRandom").on("click", function(){
-        // tirage au sort Tuile
-        $random=Math.floor(Math.random()*($tuilesMission.length));
-        $tuileRandom=$tuilesMission[$random];
-            // vérification de l'objectif
-            if($tuileRandom === $tuileObjectif){
-                $objectifTrouve=true;
-                console.log("Objectif trouvé !"+$objectifTrouve);
-                $("#messageObjectifTrouve").html($messageObjectifTrouve);
-
-                // modif affichage global
-                $("#texteObjectif").html($messageObjectifTrouve);
-                $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif+".png");
-                $("#nomObjectif").html();
-
-                // augmentation Alarme
-                if ($Alarme <4){
-                    $Alarme=4;
-                    fonctionAjoutMobsRangs();
-                    $("#nvAlarme").html($Alarme);
-                    fonctionEvenement();
-                }
-
-                if($tuileObjectif2!=""){
-                    if($tuileObjectif2="random"){
-                        $random=Math.floor(Math.random()*($tuilesMission.length));
-                        $tuileObjectif2=$tuilesMission[$random];
-                    }
-                    $("#texteObjectif").html($texteObjectif2);
-                    $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
-                    $("#nomObjectif").html($tuileObjectif2);
-                }
-            }
-            // vérif existence objectif 2
-            if($objectifTrouve && ($tuileRandom === $tuileObjectif2)){
-                $("#messageObjectifTrouve").html($messageObjectifTrouve2);
-            }
-
-        // tirage au sort Mob
-        fonctionTirageMob("#imageMob", "#explorerMobs", "#nbMobs");
-            // tirage au sort direction Mob
-            $random=Math.floor(Math.random()*($directions.length));
-            $("#directionMob").html($directions[$random]);
-            if($("#explorerMobs").html() === "aucun"){
-                $("#directionMob").html("");
-            }
-
-
-        // tirage au sort Caisse
-        $random2=Math.floor(Math.random()*(3));
-        $caisse=false;
-        $("#imageCaisse").attr("src", "");
-        if ($random2 === 0){
-            $caisse=true;
-            $("#imageCaisse").attr("src", "assets/imgs/items/box.png");
-            $nbBox++;
-            console.log($nbBox);
-
-            // vérif objectif caisses
-                // affichage nb dans le html
-                if($objectif === "caisses"){
-                    $("#nbBox").html($nbBox);
-                }
-            if($objectif === "caisses" && $nbBox === 5){
-                $objectifTrouve=true;
-                $("#messageObjectifTrouve").html($messageObjectifTrouve);
-
-                // augmentation Alarme
-                if ($Alarme <4){
-                    $Alarme=4;
-                    fonctionAjoutMobsRangs();
-                    $("#nvAlarme").html($Alarme);
-                    // événement
-                    $imageEvenementMap=$tuileDepart;
-                    fonctionEvenement();
-                }
-
-                // affichage Obj2
-
-                if($tuileObjectif2 === "random"){
-                    $random=Math.floor(Math.random()*($tuilesMission.length));
-                    $tuileObjectif2=$tuilesMission[$random];
-                }
-                $("#texteObjectif").html($texteObjectif2);
-                    $("#imageObjectif").attr("src", "assets/imgs/maps/"+$tuileObjectif2+".png");
-                    $("#nomObjectif").html($tuileObjectif2);
-            }
-
-        }
-
-        // affichage dans le html
-        $("#explorer").html($tuileRandom);
-        $("#imageTuile").attr("src", "assets/imgs/maps/"+$tuileRandom+".png");
-
-        // affichage du popupTuileRandom
-        $("#popupTuileRandom").addClass('visible');
-
-        // suppression de la tuile dans la liste $tuilesMission
-        $tuilesMission=jQuery.grep($tuilesMission, function(value){
-            return value !=$tuileRandom;
-        });
-        console.log($tuilesMission);
-
-        // ajout dans la liste tuilesTirees
-        $tuilesTirees[$tuilesTirees.length]=$tuileRandom;
-        console.log($tuilesTirees);
-
-        // ajout dans l'historique
-        $("#listeHistorique").append("<li>"+$tuileRandom+"</li>");
-
-        // vérif possibilité ajout tuile objectif
-        if($tuilesTirees.length === 5 && $tuileObjectif !=""){
-            $tuilesMission[$tuilesMission.length]=$tuileObjectif;
-        }
+        fonctionExplorer();
 
         // Possibilité d'ouverture en chaine
-        $random3=Math.floor(Math.random()*(2));
-        if($random3 === 0){
-            $random4=Math.floor(Math.random()*($directions.length));
-            $("#boutonValider").html("ATTENTION : ouvrez une autre porte "+$directions[$random4]);
-            $("#boutonValider").removeClass("boutonLarge");
-            $("#boutonValider").addClass("boutonXXLarge");
-        }
+        $randomOuvertureChaine="";
+        fonctionOuvertureChaine();
+    })
 
-        // bouton de validation
-        $("#boutonValider").on("click", function(){
+    // bouton de validation Explorer
+    $("#boutonValider").on("click", function(){
+        // Possibilité d'ouverture en chaine
+        if($randomOuvertureChaine === 0){
+            fonctionExplorer();
+            $randomOuvertureChaine="";
+            fonctionOuvertureChaine();
+        }else{
             // masquage du popup
             $("#popupTuileRandom").removeClass('visible');
             //vidage tuile
@@ -620,12 +654,14 @@ $(document).ready(function() {  /* chargement du DOM */
             // RAZ bouton valider
             $("#boutonValider").html("OK");
             $("#boutonValider").addClass("boutonLarge");
+            $("#boutonValider").addClass("boutonVert");
+            $("#boutonValider").removeClass("boutonRouge");
             $("#boutonValider").removeClass("boutonXXLarge");
-        })
+        }
     })
 
-     // Fermeture popupEvenement
-     $("#boutonFermerEvenement").on("click", function(){
+    // Fermeture popupEvenement
+    $("#boutonFermerEvenement").on("click", function(){
         $("#popupEvenement").removeClass('visible');
     })
 
@@ -838,7 +874,7 @@ $(document).ready(function() {  /* chargement du DOM */
             // vérif switch Alerte
             if($("#mobsAlerte").is(":checked")){
                 // Arrivée de Renforts
-                $("#affichageRenforts").html("<strong>Augmentation du niveau d'Alarme !</strong> <br><br>Arrivée de Renforts (porte la plus proche). <br><br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
+                $("#affichageRenforts").html("<strong>Augmentation du niveau d'Alarme !</strong> <br>Arrivée de Renforts (porte la plus proche). <br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
                     // affichage boutonImpActRenforts
                     $("#boutonImpActRenforts").removeClass("invisible");
                     // tirage au sort Mob
@@ -849,7 +885,7 @@ $(document).ready(function() {  /* chargement du DOM */
 
                     // si objectif trouvé
                     if ($objectifTrouve){
-                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Ils peuvent faire un Mouvement (max 8) vers l'Objectif.")
+                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Mouvement max 8 vers l'Objectif.")
                     }
                 // augmentation Alarme
                 fonctionAlarmePlus();
@@ -872,7 +908,7 @@ $(document).ready(function() {  /* chargement du DOM */
                     }
                     // si objectif trouvé
                     if ($objectifTrouve){
-                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Ils peuvent faire un Mouvement (max 8) vers l'Objectif.")
+                        $("#messageRenforts").html("Les Renforts entrent par la porte la plus proche de l'Objectif, et située entre les Héros et l'Objectif. <br> Mouvement max 8 vers l'Objectif.")
                     }
                 }else{
                     $("#affichageRenforts").html('La situation est sous contrôle !');
