@@ -20,7 +20,7 @@
 				<button id="boutonCaisse" class="marginT boutonBleu boutonLarge centre ligne"><img class="iconeImpact" src="assets/imgs/items/box.png"/><p id="nbBox"></p></button>
 			</div>
 			<div class="colonne">
-				<button id="boutonImpAct" class="marginL boutonRouge boutonLarge centre"><img class="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
+				<button id="boutonImpAct" class="boutonImpAct marginL boutonRouge boutonLarge centre"><img class="iconeImpact" src="assets/imgs/stormhead.png"/>ImpACT</button>
 				<button id="boutonBoss" class="marginT marginL boutonRougeSombre boutonLarge centre invisible"><img class="iconeImpact" src="assets/imgs/vader.png"/>BOSS</button>
 			</div>
 			
@@ -162,7 +162,8 @@
 						<h3 class="marginB0">Attaque :</h3>
 						<div class="ligne centreV">
 							<div class="colonne carreBlanc">
-								<p>Dés : </p>
+								<!--<p>Dés : </p>-->
+								<img src="assets/imgs/items/des.png" class="icone">
 								<select id="nbDes" class="selectDe">
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -186,8 +187,9 @@
 									<option value="20">20</option>
 								</select>
 							</div>
-							<div class="colonne carreBlanc">
-								<p>Déf : </p>
+							<div class="colonne carreBlanc">	
+								<!--<p>Déf : </p>-->
+								<img src="assets/imgs/items/armure.png" class="icone">
 								<select id="defenseDes" class="selectDe">
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -229,7 +231,8 @@
 						<h3 class="marginB0">Attaque :</h3>
 						<div class="ligne centreV">
 							<div class="colonne carreBlanc centreH">
-								<p>Dés : </p>
+								<!--<p>Dés : </p>-->
+								<img src="assets/imgs/items/des.png" class="icone">
 								<select id="nbDesBoss" class="selectDe">
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -254,7 +257,8 @@
 								</select>
 							</div>
 							<div class="colonne carreBlanc">
-								<p>Déf : </p>
+								<!--<p>Déf : </p>-->
+								<img src="assets/imgs/items/armure.png" class="icone">
 								<select id="defenseDesBoss" class="selectDe">
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -328,6 +332,9 @@
 						<h3 id="nbRenforts2" class="decalageD"></h3>
 					</div>
 					<p id="messageRenforts" class="textePetit"></p>
+
+					<!--activation renforts-->
+					<button id="boutonImpActRenforts" class="boutonImpAct marginL boutonRouge boutonLarge centre invisible"><img class="iconeImpact" src="assets/imgs/stormhead.png"/>Activation</button>
 					
 					<button id="boutonFermerFinTour" class="boutonRouge margin1 boutonLarge boutonBasPage">Fermer</button>
 				</div>

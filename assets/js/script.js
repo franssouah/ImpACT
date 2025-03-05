@@ -25,25 +25,25 @@ $(document).ready(function() {  /* chargement du DOM */
 
     // BdD Mobs Empire
     $mobsStormR1=[
-        //"nom", "nb dés"
+        //"nom", "nb dés", "capa"
         ["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],["Stormtrooper","1"],
-        ["Droide_Sonde","3"],
-        ["Officier","2"],
+        ["Droide_Sonde","3","capteurs"],
+        ["Officier","2","officier"],
         ["aucun","0"]
     ];
     $mobsStormR2=[
         ["Trooper_Lourd","3"],["Trooper_Lourd","3"],
-        ["Jet_Trooper","2"],["Jet_Trooper","2"],
-        ["Droide_Sonde","3"],
-        ["Officier","2"],
-        ["Operateur_E-Web","5"]
+        ["Jet_Trooper","2","rapide"],["Jet_Trooper","2","rapide"],
+        ["Droide_Sonde","3","capteurs"],
+        ["Officier","2","officier"],
+        ["Operateur_E-Web","5","lent"]
     ];
     $mobsStormR3=[
-        ["Droide_Sentinelle","5"],["Droide_Sentinelle","5"],
-        ["Garde_Royal","3"],["Garde_Royal","3"]
+        ["Droide_Sentinelle","5","capteurs"],["Droide_Sentinelle","5","capteurs"],
+        ["Garde_Royal","3","armure"],["Garde_Royal","3","armure"]
     ];
     $mobsStormBoss=[
-        ["Dark_Vador","20"]
+        ["Dark_Vador","20","armure"]
     ];
 
     // BdD actions
@@ -364,6 +364,11 @@ $(document).ready(function() {  /* chargement du DOM */
     for ($i=0; $i<$missions.length; $i++){
         $("#selectObjectif").append('<option value="'+$i+'">'+$missions[$i][0]+'</option>');
     }
+
+    // remise à zéro des select
+    $("#selectTheme").val("").change();
+    $("#selectObjectif").val("").change();
+
     // Popup Choix mission
         $("#popupChoixMission").addClass('visible');
 
@@ -595,6 +600,15 @@ $(document).ready(function() {  /* chargement du DOM */
             $tuilesMission[$tuilesMission.length]=$tuileObjectif;
         }
 
+        // Possibilité d'ouverture en chaine
+        $random3=Math.floor(Math.random()*(2));
+        if($random3 === 0){
+            $random4=Math.floor(Math.random()*($directions.length));
+            $("#boutonValider").html("ATTENTION : ouvrez une autre porte "+$directions[$random4]);
+            $("#boutonValider").removeClass("boutonLarge");
+            $("#boutonValider").addClass("boutonXXLarge");
+        }
+
         // bouton de validation
         $("#boutonValider").on("click", function(){
             // masquage du popup
@@ -603,6 +617,10 @@ $(document).ready(function() {  /* chargement du DOM */
             $("#explorer").html("");
             $("#imageTuile").attr("src", "");
             $("#messageObjectifTrouve").html("");
+            // RAZ bouton valider
+            $("#boutonValider").html("OK");
+            $("#boutonValider").addClass("boutonLarge");
+            $("#boutonValider").removeClass("boutonXXLarge");
         })
     })
 
@@ -613,9 +631,16 @@ $(document).ready(function() {  /* chargement du DOM */
 
     /* 5- Activation Mobs --> bouton ImpACT
     *****************************************/
-    $("#boutonImpAct").on("click", function(){
+    $(".boutonImpAct").on("click", function(){
+        //cas d'activation à partir du popupFinTour
+            $("#popupFinTour").removeClass("visible");
+            $("#boutonValiderFinTour").addClass("invisible");
+            $("#divAffichageRenforts").addClass("invisible");
+
+
         $("#zoneListeActions").addClass("invisible");
         $("#defenseDes").val("4").change();
+        $("#nbReussites").html('');
         // affichage du popupActivation
         $("#popupActivation").addClass('visible');
 
@@ -722,6 +747,8 @@ $(document).ready(function() {  /* chargement du DOM */
     /***********************************/
     $("#boutonBoss").on("click", function(){
         $("#defenseDesBoss").val("4").change();
+        $("#nbReussitesBoss").html('');
+        $("#zoneAffichageDesBoss").html('');
         // affichage du popupActivation
         $("#popupBoss").addClass('visible');
         // injection BdD actions
@@ -796,6 +823,7 @@ $(document).ready(function() {  /* chargement du DOM */
     /* 7- boutonFinTour
     *****************************************/
     $("#boutonFinTour").on("click", function(){
+        $("#boutonImpActRenforts").addClass("invisible");
         $AlarmeInitiale=$Alarme;
         $numeroTourInitial=$numeroTour;
         console.log("num initial : "+$numeroTourInitial);
@@ -811,6 +839,8 @@ $(document).ready(function() {  /* chargement du DOM */
             if($("#mobsAlerte").is(":checked")){
                 // Arrivée de Renforts
                 $("#affichageRenforts").html("<strong>Augmentation du niveau d'Alarme !</strong> <br><br>Arrivée de Renforts (porte la plus proche). <br><br>Si les Renforts aperçoivent un Héros, ils font IMMEDIATEMENT une Activation.")
+                    // affichage boutonImpActRenforts
+                    $("#boutonImpActRenforts").removeClass("invisible");
                     // tirage au sort Mob
                     fonctionTirageMob("#imageRenforts", "#RenfortsMobs", "#nbRenforts");
                     if($Alarme>6){

@@ -169,6 +169,14 @@ select{
     margin: .1rem;
     height: 4rem;
     width: 4rem;
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.selectDe{
+    width: 3rem;
+    transform: translate(-.5rem,.6rem);
 }
 
 /* Popups
@@ -244,6 +252,14 @@ select{
     max-height: 2rem;
 }
 
+.icone{
+    height: 2rem;
+    max-width: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(0, 1.5rem);
+}
+
 
 /* Boutons
 **********************************************/
@@ -253,6 +269,10 @@ button{
 }
 .boutonLarge{
     width: 8rem;
+    height: 2rem;
+}
+.boutonXXLarge{
+    width: 16rem;
     height: 2rem;
 }
 .boutonEtroit{
@@ -411,7 +431,4 @@ button{
         border-radius: .2rem;
     }
 
-    .selectDe{
-        transform: translateY(-1.2rem);
-    }
 }
